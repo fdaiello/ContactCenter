@@ -1,0 +1,120 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Função";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="role-grid" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Função Grupo</th>
+                    <th>Descrição</th>
+                    <th>Criação</th>
+                    <th>Quantidade</th>
+                    <th style="text-align: right;">
+                        Ação
+                        <a title="add" data-toggle="modal" data-target="#modal-role-add" class="add-row" onclick="$('#add-role-id').val('');$('#add-role-name').val('');$('#add-role-description').val('');" aria-describedby="ui-tooltip-0"><span class="add-icon-custom"></span></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+var grid;
+var cols=[];
+function addRole(){
+    if ($("#add-role-name").val() == '') {
+        $("#add-role-name").focus();
+        return;
+    }
+    if ($("#add-role-description").val() == '') {
+        $("#add-role-description").focus();
+        return;
+    }
+    form_data = new FormData();
+    form_data.append('id',  $("#add-role-id").val());
+    form_data.append('name', $("#add-role-name").val());
+    form_data.append('description', $("#add-role-description").val());
+    $.ajax({
+        url: 'SaveRole',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'POST',
+        dataType: "text",
+        success: function (response) {
+            var res=JSON.parse(response);
+            if(res.msg=='ok'){
+                grid.ajax.reload();
+                $('#modal-role-add').fadeOut(1000);
+                $('.modal-close-button').trigger('click');
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
+}
+function editRole(id,name,description){
+    $('#add-role-id').val(id);
+    $('#add-role-name').val(name);
+    $('#add-role-description').val(description);
+}
+function deleteRole(id){
+    form_data = new FormData();
+    form_data.append('id',  id);
+    $.ajax({
+        url: 'DeleteRole',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'POST',
+        dataType: "text",
+        success: function (response) {
+            var res=JSON.parse(response);
+            if(res.msg=='ok'){
+                grid.ajax.reload();
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
+}
+
+cols.push({ "mData": 'id', 'visible': false, 'bSearchable': false, 'bSortable': false });
+cols.push({ "mData": 'name', 'visible': true, 'bSearchable': false, 'bSortable': false });
+cols.push({ "mData": 'description', 'visible': true, 'bSearchable': false, 'bSortable': false });
+cols.push({ "mData": 'createdAt', 'visible': true, 'bSearchable': false, 'bSortable': false });
+cols.push({ "mData": 'userCount','visible':true,'bSearchable':false,'bSortable':false});
+cols.push({ "mData": 'action','visible':true,'bSearchable':false,'bSortable':false});
+$(document).ready(function(){
+    var tblDef={
+        "ajax": {
+            url:'GetRoleList',
+            dataSrc:"roleList",
+            "type" : "POST"
+        },
+        bJQueryUI: true,
+        sPaginationType: 'full_numbers',
+        aaSorting: [[0, 'asc']],
+        aoColumns: cols,
+        dom: 'Bfrtip'
+    };
+    grid = $('#role-grid').DataTable(tblDef);
+});
+</script>

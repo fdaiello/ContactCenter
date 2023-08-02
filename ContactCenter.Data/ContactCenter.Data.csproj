@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210422113406_remove-sendingLog-add-chattingLogId-to-Sending.cs" />
+    <Compile Remove="Migrations\20210422113406_remove-sendingLog-add-chattingLogId-to-Sending.Designer.cs" />
+    <Compile Remove="Migrations\20210422114056_add-OptInStatus-to-Contact.cs" />
+    <Compile Remove="Migrations\20210422114056_add-OptInStatus-to-Contact.Designer.cs" />
+    <Compile Remove="Migrations\20210527183822_sendings-boardId-nullable.cs" />
+    <Compile Remove="Migrations\20210527183822_sendings-boardId-nullable.Designer.cs" />
+    <Compile Remove="Migrations\20210628120253_GroupCampaign.cs" />
+    <Compile Remove="Migrations\20210628120253_GroupCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210628120647_GroupCampaign.cs" />
+    <Compile Remove="Migrations\20210628120647_GroupCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210628121035_GroupCampaign.cs" />
+    <Compile Remove="Migrations\20210628121035_GroupCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210628121238_GroupCampaign.cs" />
+    <Compile Remove="Migrations\20210628121238_GroupCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210707131001_GroupCampaign-welcome-leave-messages.cs" />
+    <Compile Remove="Migrations\20210707131001_GroupCampaign-welcome-leave-messages.Designer.cs" />
+    <Compile Remove="Migrations\20210803170906_GroupCampaign-WhatsGroups.cs" />
+    <Compile Remove="Migrations\20210803170906_GroupCampaign-WhatsGroups.Designer.cs" />
+    <Compile Remove="Migrations\20210803174930_GroupCampaign-WhatsGroups.cs" />
+    <Compile Remove="Migrations\20210803174930_GroupCampaign-WhatsGroups.Designer.cs" />
+    <Compile Remove="Migrations\20210812131149_LandingHit.cs" />
+    <Compile Remove="Migrations\20210812131149_LandingHit.Designer.cs" />
+    <Compile Remove="Migrations\20210812131442_LandingPages-LandingHits.cs" />
+    <Compile Remove="Migrations\20210812131442_LandingPages-LandingHits.Designer.cs" />
+    <Compile Remove="Migrations\20210817175106_landing-uriredir-email.cs" />
+    <Compile Remove="Migrations\20210817175106_landing-uriredir-email.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContactCenter.Core\ContactCenter.Core.csproj" />
+  </ItemGroup>
+
+</Project>

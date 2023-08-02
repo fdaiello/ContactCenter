@@ -1,0 +1,43 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+	ViewData["Title"] = "Contact Center | Landing Pages";
+	Layout = "_Layout";
+}
+<p class="app-sidebar__heading">Landing Pages</p>
+
+<div class="row">
+	<div class="col-md-12">
+
+		<table id="landings-grid" class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th>Criação</th>
+					<th>Url</th>
+					<th>Visitas</th>
+					<th>Leads</th>
+					<th>Taxa</th>
+					<th style="text-align: right;">
+						Ação
+						<a title="Nova Landing"
+						   data-toggle="modal"
+						   data-target="#modal-landing"
+						   class="add-row btn btn-primary"
+						   aria-describedby="Nova mensagem"
+						   onclick="clearLandingModal()">
+							<i class="fa fa-plus"></i>
+						</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script src="~/assets-admin/scripts/Landings.js?ver=1.7"></script>
+

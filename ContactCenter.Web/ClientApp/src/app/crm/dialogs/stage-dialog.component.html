@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Novo Estágio</h1>
+<div matDialogContent>
+  <mat-form-field>
+    <input placeholder="nome" matInput [(ngModel)]="data.name" autocomplete="chromeoff"/>
+  </mat-form-field>
+</div>
+<div matDialogContent>
+  <mat-form-field>
+    <input placeholder="descrição" matInput [(ngModel)]="data.label" autocomplete="chromeoff" />
+  </mat-form-field>
+</div>
+<div matDialogActions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    Incluir
+  </button>
+</div>

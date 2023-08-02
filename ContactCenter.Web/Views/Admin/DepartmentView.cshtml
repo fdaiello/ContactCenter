@@ -1,0 +1,50 @@
+﻿@using ContactCenter.Core.Models
+@using ContactCenter.Models.view
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Setores";
+    Layout = "_Layout";
+}
+
+    
+<div class="row">
+    <div class="col-md-12">
+        <label>Grupo:</label>
+        <select style="height: 30px;margin-left: 10px;" onchange="location.href = 'DepartmentView?gid='+$('#gid').val();" id="gid">
+            @foreach (GroupView g in ViewBag.GroupList)
+            {
+                if (ViewBag.gid == g.Id)
+                {
+                    <option value="@g.Id" selected>@g.Name</option>
+                }
+                else
+                {
+                    <option value="@g.Id">@g.Name</option>
+                }
+            }
+        </select>
+        
+        <table id="department-grid" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Criação</th>
+                    <th>Quantidade</th>
+                    <th style="text-align: left">
+                        Ação
+                        <a title="Novo setor" data-toggle="modal" data-target="#modal-department-add" class="add-row btn btn-primary" onclick="$('#add-department-id').val(0);$('#add-department-name').val('');" aria-describedby="Novo setor"><i class="fa fa-plus"></i></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="~/assets-admin/scripts/DepartmentView.js"></script>

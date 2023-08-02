@@ -1,0 +1,33 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Grupo";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-md-12">
+        <table id="group-grid" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Bot Url</th>
+                    <th>Criação</th>
+                    <th>Atendentes</th>
+                    <th style="text-align: right;">
+                        Ação
+                        <a title="add" data-toggle="modal" data-target="#modal-group-add" class="add-row" onclick="$('#add-group-id').val(0);$('#add-group-name').val('');$('#add-group-descr').val('');$('#add-group-boturl').val('');" aria-describedby="ui-tooltip-0"><span class="add-icon-custom"></span></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/assets-admin/scripts/GroupView.js"></script>

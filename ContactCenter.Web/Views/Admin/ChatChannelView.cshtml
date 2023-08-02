@@ -1,0 +1,38 @@
+﻿@using ContactCenter.Core.Models
+@using ContactCenter.Models.view
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Canais";
+    Layout = "_Layout";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+
+        <table id="chatchannel-grid" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Canal</th>
+                    <th>Tipo</th>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Celular</th>
+                    <th>Status</th>
+                    <th style="text-align: left;">
+                        Ação
+                        <a title="Novo canal" data-toggle="modal" data-target="#modal-chatchannels" class="add-row btn btn-primary" onclick="clearChatChannelFormFields();" aria-describedby="Novo canal"><i class="fa fa-plus"></i></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/assets-admin/scripts/ChatChannel.js?ver=1.31"></script>

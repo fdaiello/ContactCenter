@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Salvar filtro</h1>
+<div matDialogContent>
+  <mat-form-field>
+    <input placeholder="nome" matInput [(ngModel)]="data.name" autocomplete="off"/>
+  </mat-form-field>
+</div>
+<div matDialogActions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    Salvar
+  </button>
+</div>

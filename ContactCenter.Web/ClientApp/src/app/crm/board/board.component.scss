@@ -1,0 +1,51 @@
+.stages {
+    width: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    min-height: calc(100vh - 81px);
+
+    &::-webkit-scrollbar {
+      height: 4px;
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      //    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #000;
+    }
+    &::-webkit-scrollbar {
+      width: 3px;
+      background-color: #000;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #f5f5f5;
+      border: 2px solid #555555;
+    }
+    .stages-inner {
+      display: flex;
+    }
+    .handle {
+      margin-right: 16px;
+      cursor: move;
+    }
+}
+
+.stage-button {
+  padding: 10px 0 32px 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.2;
+}
+  
+.cdk-drag-animating {
+  transition: transform 300ms ease;
+}
+  
+.stages.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 300ms ease;
+}

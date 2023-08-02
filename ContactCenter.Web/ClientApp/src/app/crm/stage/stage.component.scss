@@ -1,0 +1,161 @@
+.outer-card {
+  margin: 10px;
+  min-width: 300px;
+  max-width: 300px;
+  padding: 10px;
+}
+
+.inner-card {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.cdk-drag-animating {
+  transition: transform 300ms ease;
+}
+
+.tasks.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 300ms ease;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+}
+
+.mat-card-header {
+  justify-content: space-between;
+}
+
+.mat-card-title {
+  margin-bottom: 15px;
+}
+.card{
+    border: 0;
+}
+
+.blue {
+  border-right: 7px solid #71deff;
+  border-left: 7px solid #71deff;
+  color: black;
+}
+
+.green {
+  border-right: 7px solid #36e9b6;
+  border-left: 7px solid #36e9b6;
+  color: black;
+}
+
+.yellow {
+  border-right: 7px solid #ffcf44;
+  border-left: 7px solid #ffcf44;
+  color: black;
+}
+
+.purple {
+  border-right: 7px solid #b15cff;
+  border-left: 7px solid #b15cff;
+}
+
+.red {
+  border-right: 7px solid #e74a4a;
+  border-left: 7px solid #e74a4a;
+}
+
+.gray {
+  border-right: 7px solid gray;
+  border-left: 7px solid gray;
+}
+
+.white {
+  // white has no borders!
+}
+
+.contact-card {
+  display: flex;
+  position: relative;
+  background-color: #f2f2f2;
+}
+.name-fields {
+  display: flex;
+}
+.dates {
+  display: flex;
+  font-size: 9px;
+}
+.container-card{
+    position: relative;
+}
+.chat {
+  position: absolute;
+  font-size: 14px;
+  bottom: 4px;
+  right: 10px;
+  z-index: 9999;
+}
+.chat a {
+  color: #009688;
+  display: block;
+  font-size: 12px;
+}
+.createdAt {
+  margin-right: 10px
+
+}
+.updatedAt {
+
+}
+.name-fields {
+  display: flex;
+  flex-direction: column;
+}
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 36px;
+  overflow: hidden;
+  text-transform: capitalize;
+}
+.field {
+  font-size: 12px;
+}
+.field p{
+    margin-bottom: 1px;
+}
+.field .label {
+  font-weight: 500;
+  margin-right: 5px;
+}
+.field .value {
+    width: 196px;
+}
+.mat-card {
+    padding:0
+}
+.avatar {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+.full {
+    width:100%
+}
+.generated-icon {
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50% !important;
+  padding-left: 8px !important;
+  padding-top: 12px !important;
+}
+.badge-focus {
+  color: #fff;
+  background-color: #444054;
+}
+.detail {
+    font-size: 0.8em;
+    text-decoration: underline;
+    color: blue;
+    font-weight: normal
+}

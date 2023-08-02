@@ -1,0 +1,126 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	ViewData["Title"] = "Contact Center | Unsubscribe";
+}
+<!doctype html>
+<html class="no-js" lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Language" content="pt-BR">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>@ViewData["Title"]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+	<meta name="description" content="Whats App Business Contact Center.">
+	<meta name="msapplication-tap-highlight" content="no">
+
+	<link href="~/assets-chatroom/css/main.css" rel="stylesheet" />
+	<link href="~/assets-admin/css/custom.css" rel="stylesheet" />
+	<link rel="shortcut icon" type="image/x-icon" href="~/images/favicon-mp.svg">
+
+	<link rel="stylesheet" href="~/assets-admin/css/table.css">
+	<link rel="stylesheet" href="~/assets-admin/datatables.net-bs/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="~/assets-admin/datatables.net-bs/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" href="~/assets-admin/css/bootstrap-fileinput.css">
+	<link rel="stylesheet" href="~/assets-admin/fontawesome/css/all.min.css">
+	<style>
+		h1 {
+			font-size: 1.5rem;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 1rem;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="maindiv">
+		<!--Admin Container -->
+		<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+			<div class="app-header header-shadow header-text-light">
+				<div class="app-header__logo">
+					<div class="logo-src"></div>
+					<div class="header__pane ml-auto">
+						<div>
+							<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+								<span class="hamburger-box">
+									<span class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="app-header__mobile-menu">
+					<div>
+						<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+							<span class="hamburger-box">
+								<span class="hamburger-inner"></span>
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="app-main">
+				<div class="app-sidebar sidebar-shadow">
+					<div class="app-header__logo">
+						<div class="header__pane ml-auto">
+							<div>
+								<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+									<span class="hamburger-box">
+										<span class="hamburger-inner"></span>
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="app-header__mobile-menu">
+						<div>
+							<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+								<span class="hamburger-box">
+									<span class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+					</div>
+					<div class="app-header__menu">
+						<span>
+							<button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+								<span class="btn-icon-wrapper">
+									<i class="fa fa-ellipsis-v fa-w-6"></i>
+								</span>
+							</button>
+						</span>
+					</div>
+					<div class="scrollbar-sidebar">
+						<div class="app-sidebar__inner">
+						</div>
+					</div>
+				</div>
+				<div class="app-main__outer">
+					<div class="app-main__inner">
+						<main>
+							<form method="POST" action="/unsubscribe">
+								<h1>Remover email do cadastro:</h1>
+								<h2>@ViewData["message"]</h2>
+								<div>
+									@if ((bool)ViewData["askEmail"])
+									{
+										<label>Informe seu e-mail</label>
+										<input type="text" id="email" name="email" />
+										<input type="submit" value="enviar" />
+									}
+								</div>
+							</form>
+						</main>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

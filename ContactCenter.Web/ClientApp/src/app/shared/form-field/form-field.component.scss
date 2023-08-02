@@ -1,0 +1,35 @@
+.full-width {
+    width: 100%;
+}
+::ng-deep .mat-form-field {
+  .mat-form-field-underline {
+    background-color: #0000006b;
+  }
+  .mat-form-field-label {
+    color: #0000008a;
+  }
+}
+
+
+.custom-form {
+  border: 1px solid #ced4da !important;
+}
+
+.custom-form:focus{
+    border: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+input[type="file"]{
+    margin-top: 20px;
+}
+.upload {
+    width: 60px;
+    margin-right: 20px
+}
+button {
+    margin-top: 10px
+}

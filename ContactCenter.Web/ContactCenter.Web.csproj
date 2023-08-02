@@ -1,0 +1,196 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};</ProjectTypeGuids>
+    <ProductName>Chatting Boat App</ProductName>
+    <ProductVersion>1.0.0</ProductVersion>
+    <AssemblyName>Contact Center</AssemblyName>
+    <UserSecretsId>1bdbc59a-429c-429c-9e35-c563606f43f5</UserSecretsId>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <ApplicationInsightsResourceId>/subscriptions/7743e145-79a9-4c22-97d2-cede37d839a9/resourceGroups/Bots-Us/providers/microsoft.insights/components/Contact-Center</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\crm\tableview\customtext\**" />
+    <Compile Remove="ClientApp\src\app\crm\tableview\dateformat\dateformat\**" />
+    <Compile Remove="wwwroot\attach\**" />
+    <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\crm\tableview\customtext\**" />
+    <Content Remove="ClientApp\src\app\crm\tableview\dateformat\dateformat\**" />
+    <Content Remove="wwwroot\attach\**" />
+    <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\crm\tableview\customtext\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\crm\tableview\dateformat\dateformat\**" />
+    <EmbeddedResource Remove="wwwroot\attach\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\crm\tableview\customtext\**" />
+    <None Remove="ClientApp\src\app\crm\tableview\dateformat\dateformat\**" />
+    <None Remove="wwwroot\attach\**" />
+    <None Remove="wwwroot\NewFolder\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\assets-admin\scripts\BoardFields - Cópia.js" />
+    <Content Remove="wwwroot\assets-login\css\animate.css" />
+    <Content Remove="wwwroot\assets-login\css\login.css" />
+    <Content Remove="wwwroot\assets-login\css\main.css" />
+    <Content Remove="wwwroot\assets-login\css\util.css" />
+    <Content Remove="wwwroot\assets-login\js\jquery.js" />
+    <Content Remove="wwwroot\assets-login\js\jquery.min.js" />
+    <Content Remove="wwwroot\assets-login\js\jquery.min.map" />
+    <Content Remove="wwwroot\assets-login\js\jquery.slim.js" />
+    <Content Remove="wwwroot\assets-login\js\jquery.slim.min.js" />
+    <Content Remove="wwwroot\assets-login\js\jquery.slim.min.map" />
+    <Content Remove="wwwroot\assets-login\js\superplaceholder.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\crm\tableview\customtext\customtext.component.html" />
+    <None Remove="ClientApp\src\app\crm\tableview\customtext\customtext.component.scss" />
+    <None Remove="ClientApp\src\app\crm\tableview\customtext\customtext.component.spec.ts" />
+    <None Remove="ClientApp\src\app\crm\tableview\customtext\customtext.component.ts" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\assets-login\css\animate.css" />
+    <None Include="wwwroot\assets-login\css\login.css" />
+    <None Include="wwwroot\assets-login\css\main.css" />
+    <None Include="wwwroot\assets-login\css\util.css" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\css\font-awesome.css" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\assets-login\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\assets-login\js\jquery.js" />
+    <None Include="wwwroot\assets-login\js\jquery.min.js" />
+    <None Include="wwwroot\assets-login\js\jquery.min.map" />
+    <None Include="wwwroot\assets-login\js\jquery.slim.js" />
+    <None Include="wwwroot\assets-login\js\jquery.slim.min.js" />
+    <None Include="wwwroot\assets-login\js\jquery.slim.min.map" />
+    <None Include="wwwroot\assets-login\js\superplaceholder.js" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.DataProtection.Blobs" Version="1.2.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.8.1" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.7.0" />
+    <PackageReference Include="Enums.NET" Version="3.0.3" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.4" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
+    <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContactCenter.Core\ContactCenter.Core.csproj" />
+    <ProjectReference Include="..\ContactCenter.Data\ContactCenter.Data.csproj" />
+    <ProjectReference Include="..\ContactCenter.Helpers\ContactCenter.Helpers\ContactCenter.Helpers.csproj" />
+    <ProjectReference Include="..\ContactCenter.Infrastructure\ContactCenter.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+</Project>

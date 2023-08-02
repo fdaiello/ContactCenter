@@ -1,0 +1,12 @@
+<div style="display: inline-block; width: 400px;">
+
+  <mat-button-toggle-group #group="matButtonToggleGroup"
+                           [(ngModel)]="color" (ngModelChange)="updateFilter()">
+    <mat-button-toggle *ngFor="let color of colors" [value]="color">
+      <mat-icon [ngClass]="color">
+        {{ color === "all" ? "done_all" : "lense" }}
+      </mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+</div>

@@ -1,0 +1,44 @@
+﻿@using ContactCenter.Core.Models
+@using ContactCenter.Models.view
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Board";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-12 table-wrapper">
+        <table id="field-table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Setor</th>
+                    <th>Atendente</th>
+                    <th>Multipla</th>
+                    <th style="display: flex; align-items: flex-end; justify-content: flex-end">
+                        Ação
+                        <a title="Nova lista"
+                           data-id="0"
+                           data-toggle="modal"
+                           data-target="#boardModal"
+                           class="add-row btn btn-primary"
+                           aria-describedby="Nova lista"
+                           onclick="showBoardModal(1, this)">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="~/assets-admin/scripts/Board.js"></script>

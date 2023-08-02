@@ -1,0 +1,10 @@
+<button mat-button
+        color="warn"
+        (click)="canDelete ? deleteBoard() : prepareForDelete()">
+  <fa-icon [icon]="faTrashAlt"></fa-icon> 
+  <span *ngIf="canDelete">confirmar</span>
+</button>
+
+<button *ngIf="canDelete" mat-button (click)="cancel()">
+  Cancelar
+</button>

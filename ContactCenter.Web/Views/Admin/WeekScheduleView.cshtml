@@ -1,0 +1,204 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Horário";
+    Layout = "_Layout";
+}
+<style>
+    .demo-bg {
+        background: #865e96;
+        margin-top: 60px;
+    }
+
+    .business-hours {
+        background: #495057;
+        padding: 40px 14px;
+        margin-top: 31px;
+        position: relative;
+    }
+
+    .business-hours:before {
+        content: '';
+        width: 23px;
+        height: 23px;
+        background: #111;
+        position: absolute;
+        top: 5px;
+        left: -12px;
+        transform: rotate(-45deg);
+        z-index: -1;
+    }
+
+    .business-hours .title {
+        font-size: 20px;
+        color: #BBB;
+        text-transform: uppercase;
+        padding-left: 5px;
+        border-left: 4px solid #ffac0c;
+    }
+
+    .business-hours li {
+        color: #888;
+        line-height: 30px;
+        border-bottom: 1px solid #333;
+    }
+
+        .business-hours li:last-child {
+            border-bottom: none;
+        }
+
+    .business-hours .opening-hours li.today {
+        color: #ffac0c;
+    }
+    .edit-form {
+        max-width: 409px;
+        margin: auto;
+        margin-top: calc(15%);
+    }
+    .form-row {
+        margin-bottom: 20px;
+    }
+    .form-row label{
+        color: #dee2e6;
+    }
+    .opening-hours li{
+        cursor: pointer;
+    }
+	#out-off-office-phrase {
+		width: 372px;
+		height: 142px;
+		overflow-y: scroll;
+        background-color: white;
+	}
+
+</style>
+<div class="row">
+	<div class="col-md-12">
+		<div class="container demo-bg">
+			<div class="row">
+				<div class="col-sm-7">
+					<div class="edit-form">
+						<div class="form-row">
+							<div class="col-md-3">
+								<label>Hora de abertura: </label>
+							</div>
+							<div class="col-md-5">
+								<input type="hidden" id="cur_week" />
+								<input name="opentime" id="opentime" placeholder="" type="text" class="form-control">
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-3">
+								<label>Hora de fechamento: </label>
+							</div>
+							<div class="col-md-5">
+								<input name="closetime" id="closetime" placeholder="" type="text" class="form-control">
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-3">
+								<label for="moda-message-title">Mensagem fora do expediente</label>
+							</div>
+							<div class="col-md-5">
+								<textarea name="out-off-office-phrase" id="out-off-office-phrase" placeholder="" type="text" class="form-control">@ViewBag.OutOfOfficeHoursPhrase</textarea>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-12" style="text-align:center;">
+								<button type="submit" class="btn mr-2 mb-2 btn-dark custom-dark" onclick="saveAction();" style="margin-top: 7px;">
+									Salvar
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="business-hours">
+						<h2 class="title">Horário de atendimento</h2>
+						<ul class="list-unstyled opening-hours">
+							<li class="sch-sun">Domingo <span class="pull-right">Fechado</span></li>
+							<li class="sch-mon">Segunda <span class="pull-right">9:00-22:00</span></li>
+							<li class="sch-tue">Terça <span class="pull-right">9:00-22:00</span></li>
+							<li class="sch-wed">Quarta <span class="pull-right">9:00-22:00</span></li>
+							<li class="sch-thu">Quinta <span class="pull-right">9:00-22:00</span></li>
+							<li class="sch-fri">Sexta <span class="pull-right">9:00-23:30</span></li>
+							<li class="sch-sat">sábado <span class="pull-right">14:00-23:30</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" id="Schedule" value="@ViewBag.Schedule"/>
+
+
+<script>
+    var schedule = null;
+    $(document).ready(function () {
+        $('.opening-hours li').eq(new Date().getDay()).addClass('today');
+        initOpenningHours();
+        $('.opening-hours li').on('click', function () {
+            $('.opening-hours li').each(function () {
+                $(this).removeClass('today');
+            });
+            $(this).addClass('today');
+            setFormInputs();
+        });
+    });
+    function initOpenningHours() {
+        schedule = JSON.parse($('#Schedule').val());
+        $('.sch-sun span').html(getOpenningHours(schedule.SunOpen, schedule.SunClose));
+        $('.sch-mon span').html(getOpenningHours(schedule.MonOpen, schedule.MonClose));
+        $('.sch-tue span').html(getOpenningHours(schedule.TueOpen, schedule.TueClose));
+        $('.sch-wed span').html(getOpenningHours(schedule.WedOpen, schedule.WedClose));
+        $('.sch-thu span').html(getOpenningHours(schedule.ThuOpen, schedule.ThuClose));
+        $('.sch-fri span').html(getOpenningHours(schedule.FriOpen, schedule.FriClose));
+        $('.sch-sat span').html(getOpenningHours(schedule.SatOpen, schedule.SatClose));
+    }
+    function getOpenningHours(o, c) { return o == '' ? 'Fechado' : o + '-' + c; }
+    function setFormInputs() {
+        $('.opening-hours li').each(function () {
+            var cls = $(this).prop('class');
+            if (cls.indexOf('today') > -1) {
+                cls = cls.replace('today ', '').replace(' today', '').replace('sch-', '');
+                if (cls == 'sun') { $('#cur_week').val(cls); $('#opentime').val(schedule.SunOpen); $('#closetime').val(schedule.SunClose); }
+                else if (cls == 'mon') { $('#cur_week').val(cls); $('#opentime').val(schedule.MonOpen); $('#closetime').val(schedule.MonClose); }
+                else if (cls == 'tue') { $('#cur_week').val(cls); $('#opentime').val(schedule.TueOpen); $('#closetime').val(schedule.TueClose); }
+                else if (cls == 'wed') { $('#cur_week').val(cls); $('#opentime').val(schedule.WedOpen); $('#closetime').val(schedule.WedClose); }
+                else if (cls == 'thu') { $('#cur_week').val(cls); $('#opentime').val(schedule.ThuOpen); $('#closetime').val(schedule.ThuClose); }
+                else if (cls == 'fri') { $('#cur_week').val(cls); $('#opentime').val(schedule.FriOpen); $('#closetime').val(schedule.FriClose); }
+                else if (cls == 'sat') { $('#cur_week').val(cls); $('#opentime').val(schedule.SatOpen); $('#closetime').val(schedule.SatClose); }
+                return;
+            }
+        });
+    }
+    function saveAction() {
+        var form_data = new FormData();
+        form_data.append('week', $("#cur_week").val());				    //message text
+        form_data.append('opentime', $("#opentime").val());							    //attached file object
+        form_data.append('closetime', $("#closetime").val());
+		form_data.append('outoffofficephrase', $("#out-off-office-phrase").val());
+        $.ajax({
+            url: 'SaveWeekSchedule',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'POST',
+            dataType: "json",
+            success: function (response) {
+                $('#Schedule').val(response.schedule);
+                initOpenningHours();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                
+            }
+        });
+    }
+</script>

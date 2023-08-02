@@ -1,0 +1,37 @@
+<div id="gridHeader">
+
+  <button (click)="onBtnExport()">
+    Download
+  </button>
+  <button (click)="onBtnSaveFilter()" *ngIf="showSaveFilter">
+    Salvar Filtro
+  </button>
+
+  <div class="filter-div" *ngIf="filters && filters.length > 0">
+    <mat-icon>filter_list</mat-icon>
+    <mat-form-field>
+      <mat-select name="filter" (selectionChange)="setFilter($event)" [(ngModel)]="currentFilterId">
+        <mat-option [value]="0"></mat-option>
+        <mat-option *ngFor="let filter of filters" [value]="filter.id">
+          {{ filter.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <app-delete-button (delete)="deleteFilter()" *ngIf="currentFilter"></app-delete-button>
+  </div>
+</div>
+
+<ag-grid-angular style="width: 100%; height: calc(100Vh - 114px);"
+                   class="ag-theme-alpine"
+                   [rowData]="cards"
+                   [columnDefs]="columnDefs"
+                   [pagination]="true"
+                   [paginationAutoPageSize]="true"
+                   [animateRows]=true
+                   [localeText]="localeText"
+                   [frameworkComponents]="frameworkComponents"
+                   [rowSelection]="rowSelection"
+                   (gridReady)="onGridReady($event)"
+                   (selectionChanged)="onSelectionChanged($event)"
+                   (filterChanged)="onfilterChanged()">
+</ag-grid-angular>

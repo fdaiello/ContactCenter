@@ -1,0 +1,18 @@
+<div id="customfilter">
+  <mat-form-field appearance="outline">
+    <select matNativeControl required [(ngModel)]="operator" name="operator" (change)="updateFilter()">
+      <option value="contains" selected>contém</option>
+      <option value="!contains">não contém</option>
+      <option value="equals">igual</option>
+      <option value="!equals">diferente</option>
+      <option value="greater">maior que</option>
+      <option value="lower">menor que</option>
+    </select>
+  </mat-form-field>
+
+  <form class="example-form">
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Filtro..." [(ngModel)]="filter" (change)="updateFilter()" name="filter">
+    </mat-form-field>
+  </form>
+</div>

@@ -1,0 +1,53 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Atendentes";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="user-grid" class="table table-bordered table-striped">
+            <thead>
+				<tr>
+					<th></th>
+					<th>ID</th>
+					<th>Grupo</th>
+					<th>Nome</th>
+					<th>Setor</th>
+					<th>Função</th>
+					<th>Usuário</th>
+					<th>Email</th>
+					<th>Apelido</th>
+					<th>Criação</th>
+					<th>Notificações</th>
+					<th style="text-align: left;">
+						Açao
+						<a title="Novo atendente" data-toggle="modal" data-target="#modal-user-add" class="add-row btn btn-primary"
+						   onclick="initDepartmentSelect();$('#add-user-name').prop('disabled', false); $('#add-user-id').val(''); $('#add-user-name').val(''); $('#add-user-fullname').val(''); $('#add-user-nickname').val(''); $('#add-user-email').val('');" aria-describedby="Novo atendente"><i class="fa fa-plus"></i></a>
+					</th>
+				</tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.DepartmentListJson" id="DepartmentList"/>
+<style>
+    tr div.expand {
+        width: 20px;
+        height: 20px;
+        background-image: url('../assets-admin/css/images/next.gif');
+        background-repeat: no-repeat;
+    }
+
+    tr div.open {
+        background-image: url('../assets-admin/css/images/uup.png');
+        background-repeat: no-repeat;
+    }
+</style>
+<script src="~/assets-admin/scripts/UserView.js?ver=1.1"></script>

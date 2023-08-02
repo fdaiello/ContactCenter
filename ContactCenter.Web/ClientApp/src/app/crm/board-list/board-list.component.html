@@ -1,0 +1,24 @@
+<!-- Board Select -->
+<form class="form-board-select" [formGroup]="boardSelect">
+  <mat-form-field>
+    <mat-select name="board" formControlName="board" (selectionChange)="updateBoard($event)" class="boardlist">
+      <mat-option *ngFor="let board of boards" [value]="board.id">
+        {{ board.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onValChange(group.value)" [value]="viewSelectedVal" class="tooglebuttons">
+    <mat-button-toggle value="kanban" aria-label="Text align left">
+      <mat-icon>view_week</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="table" aria-label="Text align center">
+      <mat-icon>view_list</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</form>
+
+<!-- Show Kanban -->
+<app-board [board]="currentBoard" *ngIf="viewSelectedVal=='kanban'"></app-board>
+
+<!-- Show TableView-->
+<app-tableview [board]="currentBoard" *ngIf="viewSelectedVal=='table'"></app-tableview>

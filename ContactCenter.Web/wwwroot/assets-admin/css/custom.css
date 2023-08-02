@@ -1,0 +1,544 @@
+﻿body {
+    overflow-y: auto;
+    margin-bottom: 0 !important;
+}
+.app-sidebar__inner ul li a p {
+    margin-left: 50px;
+    margin-top: 8px;
+}
+.scroll-area-sm {
+    height:100%;
+}
+main {
+    position: relative;
+    padding: 20px;
+    height: 100%;
+}
+.app-wrapper-footer {
+    margin: 0 -15px;
+}
+.modal-dialog {
+    margin-top: 70px!important;
+}
+.modal-header {
+    display: block;
+}
+.modal-dialog .form-group {
+    display: inline-flex;
+    width: 100%;
+}
+.closed-sidebar.fixed-sidebar .app-main__outer {
+    padding-left: 0px;
+}
+.tab-content .main-card {
+    height: 100%;
+}
+.dashboard-item-card {
+    min-height: calc(54vh/2) !important;
+}
+.dashboard-item-card .item-info,
+.dashboard-item-card .sub-item-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.dashboard-item-card .sub-item-info {
+    padding-left: 15px;
+}
+.dashboard-item-card .label {
+    font-style: italic;
+}
+.chart-channel-area {
+    min-height: calc(46vh/2) !important;
+}
+.chart-title {
+    position: absolute;
+}
+.body-tabs-shadow .body-tabs-animated {
+    padding: 5px 0 5px 15px;
+}
+.card.mb-3 {
+    margin-bottom: 20px;
+    min-height: 330px;
+}
+.dashboard-title {
+    background: rgba(255,255,255,0.45);
+    padding: 15px 20px 10px 20px;
+    margin: -20px -20px 0px -20px;
+}
+.dashboard-date-spacer {
+    margin: 0 14px 0 14px;
+    padding-top: 7px
+}
+.dashboard-user-info {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 120px;
+}
+.filter-fdate, .filter-tdate {
+    color: #0075ff;
+    font-size: 11px;
+    position: absolute;
+    top: -12px;
+}
+.daterange-filter {
+    padding-left:5px;
+}
+
+.header-logout-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    padding: 0;
+    outline: none;
+    position: relative;
+    z-index: 2;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: rgba(0,0,0,0.06);
+    border-radius: 30px;
+}
+
+.slider-handle {
+    background-color: #794c8a !important;
+}
+#blue .slider-selection {
+    background: #794c8ab3!important;
+}
+#divQRCode img {
+    max-width: none;
+}
+
+table thead tr th .btn {
+    margin-left: 15px;
+}
+table thead tr th .btn,
+table tbody tr td .btn {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    margin: 3px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    color: #fff !important;
+}
+table tbody tr td .button-group {
+    display: none;
+}
+.fieldModal.show {
+    display: block !important;
+}
+.fieldModal .modal-header {
+    display: flex;
+}
+.fieldModal .datalist-items {
+    display: none;
+}
+    .fieldModal .form-group .form-control {
+        padding: 1rem .25rem .25rem .5rem;
+        height: auto;
+        font-size: 1rem;
+    }
+    .fieldModal .value-list {
+        margin-bottom: 10px;
+        max-height: 200px;
+        overflow: auto;
+    }
+    .fieldModal .data-list-value {
+        padding: 5px 0;
+    }
+    .fieldModal .data-list-value .btn {
+        border-radius: 50%;
+        font-size: 10px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        margin-right: 10px;
+    }
+input:disabled, select:disabled {
+    cursor: not-allowed;
+}
+
+.alerta-sucesso, .alerta-erro, .spinner-start {
+    display: block;
+}
+.alerta, .spinner-start {
+    position: absolute;
+    z-index: 90000;
+}
+.alerta {
+    width: 345px;
+    top: 50px;
+    right: 50px;
+    background-color: #fafafa;
+    padding: 18px 0 8px 16px;
+    border-radius: 5px;
+}
+.alerta-sucesso {
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+.alerta-erro {
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.alerta, .spinner-processamento {
+    display: none;
+}
+.spinner-start {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+}
+.spinner-border {
+    position: absolute;
+    z-index: 90001;
+    right: 50%;
+    top: 50%;
+}
+
+
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    text-decoration: none;
+    display: block;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    background-color: #fff;
+    padding: 13px 6px 13px 8px;
+}
+.dropdown-btn:hover{
+    background-color: #e0f3ff;
+}
+/* Dropdown container : hidden by default */
+.dropdown-container {
+    display: none;
+    padding-left: 8px;
+    margin-left: 36px;
+}
+/* Dropdown container open */
+.dropdown-container-open {
+    padding-left: 8px;
+    margin-left: 36px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+#campo-definicao, #campo-contato, #campo-cartoes{
+    padding-top: 16px;
+}
+.icone-dropdown{
+    width: 23px !important;
+    height: 15px !important;
+    position: absolute;
+    right: 5px;
+    margin-right: 10px;
+    margin-top: 7px;
+}
+
+.hide {
+    display:none !important
+}
+
+.header-menu .nav-item {
+    list-style: none
+}
+
+.channel-icon {
+    width: 25px;
+}
+
+.vertical-nav-menu {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+}
+    .vertical-nav-menu li a.mm-active {
+        color: #343a40;
+        background: #e0f3ff;
+        font-weight: bold;
+    }
+
+    .vertical-nav-menu li a {
+        display: block;
+        line-height: 20px;
+        height: 52px;
+        padding: 5px 10px 0px 8px;
+        position: relative;
+        border-radius: .25rem;
+        color: #343a40;
+        white-space: nowrap;
+        transition: all .2s;
+        margin: .1rem 0;
+    }
+
+.admheader {
+    margin-bottom: 30px
+}
+.btn-info {
+    width: 75px
+}
+#attached-file {
+    display: none;
+}
+.attached-view {
+    max-width:368px
+}
+.attached-view img {
+    max-height: 76px;
+}
+.form-group .svg-inline--fa.fa-w-14 {
+    width: 2.875em;
+}
+.form-group .svg-inline--fa {
+    height: 2em;
+}
+.btn-submit-file {
+    width: 94px;
+    font-size: 1.8rem;
+}
+.main-card.card {
+    padding: 15px;
+}
+
+/* Sendings */
+.sending-report label {
+    width: 140px
+}
+.sending-report input {
+    width: 116px;
+    text-align: right;
+    border: 1px solid #d5d9dc;
+}
+.sending-report div {
+    margin-bottom: 8px
+}
+.sending-report .CheckRead {
+    color: #4fc3f7;
+}
+.sending-report .CheckFail {
+    color: red;
+}
+.sending-report h1, .groupcampaign-report h1 {
+    font-size: 1.4em;
+}
+
+/* Tooltip container */
+.tooltip1 {
+    position: relative;
+    display: inline-block
+}
+
+    .tooltip1 .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip1 .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+    .tooltip1:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.gridtooltip {
+    width: auto!important;
+}
+/* Message Personalize */
+#message-content {
+    position: relative;
+}
+#modal-message-btn-personalizar {
+    position: absolute;
+    right: 36px;
+    top: 1px;
+    border: none;
+    background-color: transparent;
+}
+#modal-message-btn-addlink {
+    position: absolute;
+    right: 74px;
+    top: 1px;
+    border: none;
+    background-color: transparent;
+}
+#modal-message-btn-bold {
+    position: absolute;
+    right: 114px;
+    top: 1px;
+    border: none;
+    background-color: transparent;
+}
+#message-content .svg-inline--fa.fa-w-18, #message-content .svg-inline--fa.fa-link, #message-content .svg-inline--fa.fa-bold {
+    color: #929eaa
+}
+    #message-content .svg-inline--fa.fa-w-18:hover, #message-content .svg-inline--fa.fa-link:hover, #message-content .svg-inline--fa.fa-bold:hover {
+        color: gray;
+    }
+
+.emojionearea-editor span {
+    display: inline-block;
+    padding: 0 6px;
+    margin: 0;
+    height: 25px;
+    font-size: 16px;
+    border-radius: 25px;
+    background-color: #e9ecef;
+    font-weight: normal;
+    text-align: center;
+}
+
+.fieldpicker, .linkpicker {
+    padding: 0 6px;
+    margin: 0 5px 0 5px;
+    height: 25px;
+    font-size: 16px;
+    border-radius: 25px;
+    background-color: #e9ecef;
+    font-weight: normal;
+    margin-bottom: 5px;
+    width: 100px;
+    text-align: center;
+    overflow: hidden;
+}
+.linkpicker {
+    width: 172px;
+}
+
+.emojionearea .emojionearea-editor {
+    margin-top: 10px;
+}
+#modal-message-content {
+    width: 372px;
+    height: 150px;
+    overflow: scroll;
+}
+#modal-message-customfieldpicker, #modal-message-linkpicker {
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ccc;
+    padding-top: 5px;
+    width: 200px;
+    top: -148px;
+    right: 0;
+    background-color: white;
+    height: 144px;
+    overflow: scroll;
+    overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px
+}
+    #modal-message-customfieldpicker:focus, #modal-message-linkpicker:focus {
+        border-color: #ccc;
+    }
+
+#modal-message-content-counter, #modal-import-counter {
+    width: 50px;
+    height: 24px;
+    text-align: right;
+    padding: 0;
+}
+
+#modal-groupcampaign .link {
+    margin-right: 3px;
+    position: relative;
+    top: 2px;
+    color: blue;
+}
+
+#modal-groupcampaign .shortField {
+    width: 100px;
+    height: 35px;
+}
+#modal-groupcampaign .linkField  {
+    width: 180px;
+    height: 25px;
+    color: blue;
+    padding: 0
+}
+#groupcampaigns-grid a {
+    font-size: .8em;
+}
+#modal-groupcampaign .btn-submit-file {
+    width: 40px;
+    font-size: 1.8rem;
+}
+
+#modal-groupcampaign .form-control {
+    padding: .5rem .25rem .25rem .5rem;
+}
+.groupCampaignImage {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.board-label {
+    max-width: 420px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.align-right {
+    text-align: right;
+}
+#modal-import .form-group .svg-inline--fa.fa-w-14 {
+    width: 1em
+}
+#modal-import-filename {
+    background-color: white;
+    height: 50px
+}
+progress {
+    width: 83px
+}
+.dashExportButton {
+    height: 25px;
+    margin-top: 10px
+}

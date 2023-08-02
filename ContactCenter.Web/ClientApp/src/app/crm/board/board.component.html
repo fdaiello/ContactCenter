@@ -1,0 +1,15 @@
+<cdk-virtual-scroll-viewport style="height: calc(100Vh - 64px)" itemSize="90">
+  <div cdkDropList cdkDropListOrientation="horizontal" class="stages" (cdkDropListDropped)="drop($event)">
+    <app-stage cdkDrag cdkDropListGroup [cdkDragData]="stage"
+               *ngFor="let stage of stages; let i = index"
+               [stage]="stage" [stages]="stages" [stageIndex]="i"
+               (deleteEvent)="update($event)">
+      <mat-icon cdkDragHandle class="handle">drag_indicator</mat-icon>
+    </app-stage>
+    <div class="stage-button">
+      <button mat-raised-button color="accent" cdkDragDisabled (click)="openStageDialog()">
+        Novo Estágio
+      </button>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>

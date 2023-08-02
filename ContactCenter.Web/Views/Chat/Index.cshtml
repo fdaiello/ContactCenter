@@ -1,0 +1,664 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+	ViewData["Title"] = "Contact Center";
+}
+<!doctype html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Language" content="pt-BR">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>@ViewData["Title"]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+	<meta name="description" content="Whats App Business Contact Center.">
+	<meta name="msapplication-tap-highlight" content="no">
+	<script src="~/assets/scripts/app-height.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="~/assets-chatroom/css/bootstrap.min.css">
+	<link href="~/assets-chatroom/css/main.css?v=1.19" rel="stylesheet">
+	<link href="~/assets-chatroom/css/custom.css?v=1.20" rel="stylesheet">
+	<link href="~/assets-chatroom/css/ImageZoom.css" rel="stylesheet" />
+	<link href="~/assets/emojionarea/emojionearea.min.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="~/images/favicon-mp.svg">
+	<!-- start webpushr tracking code -->
+	<script>
+		(function (w, d, s, id) {
+			if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";
+			fjs.parentNode.appendChild(js);
+		}(window, document, 'script', 'webpushr-jssdk'));
+		webpushr('setup', { 'key': 'BMITvMqhfZDig-vhd4PBdkokqZZkVNg8QpnPx1cr4wPsZM9mYmxgnTt_T6cy2-wynuxQ495N-4UfwObQbYcdx80' });</script>
+</head>
+<body>
+
+	<main>
+		
+		<div class="maindiv">
+
+			<!-- Chat Room Container -->
+			<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+				<div class="app-header header-shadow header-text-light">
+					<div class="app-header__logo">
+						<div class="logo-src"></div>
+						<nav class="navbar navbar-dark bg-dark navbar-transparent">
+							<div class="container-fluid">
+								<button class="navbar-toggler btn-navbar-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+							</div>
+						</nav>
+					</div>
+					<div class="app-header__mobile-menu">
+						<nav class="navbar navbar-dark bg-dark navbar-transparent">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+							</div>
+						</nav>
+					</div>
+					<div class="app-header__menu">
+						<span>
+							<button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+								<span class="btn-icon-wrapper">
+									<i class="fa fa-ellipsis-v fa-w-6"></i>
+								</span>
+							</button>
+						</span>
+					</div>
+					<div class="app-header__content">
+						<div class="app-header-left" onclick="currentAgentSelectAction()">
+							<div class="header-btn-lg pl-0">
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-right">
+											<div class="btn-group">
+												<a id="current_avatar_img" aria-haspopup="true" aria-expanded="false" class="p-0 btn" data-toggle="modal" data-target="#agent_profile_edit_modal">
+													<img class="rounded-circle" src="@ViewBag.current_agent.Avatar" alt="@ViewBag.current_agent.FullName">
+												</a>
+											</div>
+										</div>
+										<div class="widget-content-left  ml-3 header-user-info">
+											<div id="current_username_div" class="widget-heading">@ViewBag.current_agent.FullName</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="app-header-right">
+							<ul class="header-menu nav">
+								@if ((int)ViewData["current_group"] != 7)
+								{
+									<li id="admin_panel_view" class="nav-item">
+										<form asp-area="" asp-controller="Admin" asp-action="Index" method="get" class="navbar-right">
+											<button type="submit" class="btn mr-2 mb-2 btn-info custom-info" style="margin-top: 7px;">
+												Admin
+											</button>
+										</form>
+									</li>
+								}
+								@if ((bool)ViewData["hasAnyBoard"])
+								{
+									<li id="crm_view" class="nav-item">
+										<a href="/crm" class="btn mr-2 mb-2 btn-info custom-info" style="margin-top: 7px;">
+											CRM
+										</a>
+									</li>
+								}
+							</ul>
+							<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+								<button type="submit" class="btn-shadow p-1 btn btn-success btn-sm header-logout-btn" onclick="logoutAction();">
+									<i class="fas fa-power-off"></i>
+								</button>
+							</form>
+							<button class="btn-toggle-right-sidebar">
+								<i class="fas fa-arrow-alt-circle-right"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="app-main">
+					<div class="app-sidebar sidebar-shadow">
+						<div class="app-header__logo">
+							<div class="header__pane ml-auto">
+								<div>
+									<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+										<span class="hamburger-box">
+											<span class="hamburger-inner"></span>
+										</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="app-header__mobile-menu">
+							<div>
+								<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+									<span class="hamburger-box">
+										<span class="hamburger-inner"></span>
+									</span>
+								</button>
+							</div>
+						</div>
+						<div class="app-header__menu">
+							<span>
+								<button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+									<span class="btn-icon-wrapper">
+										<i class="fa fa-ellipsis-v fa-w-6"></i>
+									</span>
+								</button>
+							</span>
+						</div>
+
+						<div class="scrollbar-sidebar" id="scrollbar-sidebar">
+							<div class="app-sidebar__inner">
+								<div class="sidebar-search">
+									<span class="lupa"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M15.009 13.805h-.636l-.22-.219a5.184 5.184 0 0 0 1.256-3.386 5.207 5.207 0 1 0-5.207 5.208 5.183 5.183 0 0 0 3.385-1.255l.221.22v.635l4.004 3.999 1.194-1.195-3.997-4.007zm-4.808 0a3.605 3.605 0 1 1 0-7.21 3.605 3.605 0 0 1 0 7.21z"></path></svg></span>
+									<input type="text" id="sidebar_search_input" placeholder="Pesquise por nome, celular ou email" autocomplete="chromeoff" />
+									<span class="x"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M17.25 7.8L16.2 6.75l-4.2 4.2-4.2-4.2L6.75 7.8l4.2 4.2-4.2 4.2 1.05 1.05 4.2-4.2 4.2 4.2 1.05-1.05-4.2-4.2 4.2-4.2z"></path></svg></span>
+								</div>
+								<ul class="vertical-nav-menu metismenu" id="vertical-nav-menu" onscroll="contactsScroll()">
+									<li class="app-sidebar__heading hide" id="left-agents-header">Atendentes</li>
+									<li class="app-sidebar__heading" id="left-contacts-header">Contatos</li>
+								</ul>
+								<ul class="vertical-nav-menu metismenu hide" id="vertical-nav-menu-search">
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="app-main__outer">
+
+						<div id="droptarget">
+							<div><span>Arraste arquivo aqui!</span></div>
+						</div>
+
+						<div class='container-pre-visualizacao' style="display: none">
+							<div class='header-pre-visualizacao'>
+								<button type="button" class="btn close-pre-visualizacao" aria-label="Close">&times;</button>
+								<h4>Pré-Visualização</h4>
+							</div>
+							<div class='body-pre-visualizacao'>
+								<div class='visualizacao'></div>
+							</div>
+							<div class='footer-pre-visualizacao'>
+								<button class='btn btn-outline-success btn-send-img'><i class="fas fa-paper-plane"></i></button>
+							</div>
+						</div>
+
+						<div class="app-main__inner">
+							<div class="scroll-area-sm">
+								<div class="scrollbar-container">
+									<div class="mesgs">
+										<div class="loader" style="display:none"></div>
+										<div id="msg_history" onscroll="msgHistoryScroll()">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="app-wrapper-footer">
+								<div id="toast-container" class="toast-bottom-left" style="display:none;position: absolute;bottom: 54px;left: 286px">
+									<div class="toast toast-info" aria-live="polite" style="">
+										<div class="toast-progress" style="width: 100%;"></div>
+										<button type="button" class="toast-close-button" role="button" onclick="closeAttachedFileAction();">×</button>
+										<div class="toast-title">Attached file</div>
+										<div class="toast-message"></div>
+									</div>
+								</div>
+								<div class="app-footer pastediv">
+									<div class="app-footer__inner">
+
+										<div class="container-messages">
+											<div class="message-item">
+												<input type="file" id="attached_file" />
+												<button class="btn btn-sm p-1 btn-submit-file" onclick="attachedFileClickAction();"><i class="fas fa-paperclip"></i></button>
+											</div>
+											<div class="mx-2 message-item" id="send-msg-div">
+												<textarea id="send-message-obj" class="message-text-area hidden" placeholder="Digite uma mensagem" rows="1"></textarea>
+											</div>
+											<div class="message-item">
+												<audio controls class="audio"></audio>
+												<div class="recording-audio">
+													<button class="btn btn-light recording" id="cancel-audio">
+														<i class="fas fa-times"></i>
+													</button>
+													<div class="record-cont">
+														<i class="record-vinyl"></i> <span>Gravando...</span>
+													</div>
+													<button class="btn btn-light recording" id="send-audio">
+														<i class="fas fa-check"></i>
+													</button>
+												</div>
+												<button class="btn btn-sm p-1 start-recording">
+													<i class="fas fa-microphone-alt"></i>
+												</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="right-sidebar">
+						<div class="sidebar-content">
+							<div class="contact-image"></div>
+							<div class="accordion" id="sidebar_accordion">
+								<div class="card accordion-item" id="contact_card">
+									<div class="card-header card-header-contato" id="headingOne">
+										<button class="btn btn-link btn-collapse-contato btn-collapse-right btn-block text-left" data-bs-toggle="collapse" type="button" data-toggle="collapse"
+												data-target="#contact_info" aria-expanded="true" aria-controls="contact_info">
+											<span>Contato</span>
+										</button>
+										<button id="novo-contato" class="btn btn-incluir btn-novo-contato btn-purple">Incluir</button>
+									</div>
+									<div id="contact_info" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+										 data-parent="#sidebar_accordion">
+										<div class="card-body">
+											<div class="contact-info">
+												<div class="form-group">
+													<label class="col-form-label-sm" for="">Nome</label>
+													<input type="text" class="form-control form-control-sm" id="contact_name" autocomplete="chromeoff">
+												</div>
+												<div class="form-group">
+													<label class="col-form-label-sm" for="">Email</label>
+													<input type="email" class="form-control form-control-sm" id="contact_email" autocomplete="off">
+												</div>
+												<div class="form-group">
+													<label class="col-form-label-sm" for="">Fone</label>
+													<input type="tel" class="form-control form-control-sm" id="contact_mobilephone">
+												</div>
+												<div class="form-group" id="contact_channel">
+													<label class="col-form-label-sm" for="">Canal</label>
+													<select class="form-control form-control-sm" name="" id="contact_channel_selector">
+														<!-- Dynamic channel selector -->
+													</select>
+												</div>
+												<div class="form-group" id="contact_agent">
+													<label class="col-form-label-sm" for="">Atendente</label>
+													<select class="form-control form-control-sm" name="" id="contact_agent_selector">
+														<!-- Dynamic application user selector -->
+													</select>
+												</div>
+												<div class="form-group" id="contact_department">
+													<label class="col-form-label-sm" for="">Setor</label>
+													<select class="form-control form-control-sm" name="" id="contact_department_selector">
+														<!-- Dynamic department selector -->
+													</select>
+												</div>
+												<div class="text-right">
+													<button class="btn btn-save-contact btn-sm btn-purple">Salvar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card accordion-item" id="custom_field_card">
+									<div class="card-header btn_custom_fields" id="headingTwo">
+										<button class="btn btn-collapse-right btn-link btn-block text-left collapsed" data-bs-toggle="collapse" type="button" data-toggle="collapse"
+												data-target="#custom_fields" aria-expanded="false" aria-controls="custom_fields">
+											<span>Campos personalizados</span>
+										</button>
+									</div>
+									<div id="custom_fields" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+										 data-parent="#sidebar_accordion">
+
+										<form id="customFieldsFormData" enctype="multipart/form-data">
+
+											<div class="card-body">
+												<div class="custom-fields">
+													<!-- Dynamic custom fields from API -->
+												</div>
+												<div class="text-right">
+													<button class="btn btn-save-custom-fields btn-sm btn-purple">Salvar</button>
+												</div>
+											</div>
+
+										</form>
+
+									</div>
+									<div class="card accordion-item" id="all_cards">
+										<div class="card-header" id="headingThree">
+											<button class="btn collapse-cards btn-collapse-right btn-link btn-block text-left collapsed" data-bs-toggle="collapse" type="button" data-toggle="collapse"
+													data-target="#contact_cards" aria-expanded="false" aria-controls="contact_cards">
+												<span>Listas</span>
+											</button>
+											<button id="novo-cartao" class="btn btn-purple collapsed" type="button"
+													data-target="#contact_cards" aria-expanded="false" aria-controls="contact_cards">
+												Incluir
+											</button>
+											<button id="cancela-novo-cartao" style="display: none" class="btn btn-purple collapsed" data-bs-toggle="collapse" type="button" data-toggle="collapse"
+													data-target="#contact_cards" aria-expanded="false" aria-controls="contact_cards">
+												Cancelar
+											</button>
+										</div>
+										<div id="contact_cards" class="accordion-collapse collapse-new-card collapse" aria-labelledby="headingThree"
+											 data-parent="#sidebar_accordion">
+											<div class="contact-info select-board" style="display: none;">
+												<div class="form-group">
+													<select name="" id="contact_board_selector" class="form-control form-control-sm">
+														<!-- Dynamic boards from API-->
+													</select>
+												</div>
+											</div>
+											<div class="card-body">
+												<!-- Dynamic cards from API -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Add Agent -->
+				<div id="agent_add_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">New agent</h5>
+								<button type="button" class="btn-modal-cloase close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form autocomplete="on">
+									<div class="form-row">
+										<div class="col-md-3">
+											<img id="add_avatarPreview" src="~/assets-chatroom/images/avatars/default.png" alt="your avatar" style="    border-color: #cfd1d4;border-style: solid;border-width: 1px;width: 100px;height: 100px;border-radius: 50%;" />
+											<input type='file' name="avatar" id="add_avatar" class="avatarInp" style="width: 1px;opacity: 0;" />
+											<div>
+												<button id="add-avatar-change-btn" class="mb-2 mr-2 border-0 btn-transition btn btn-outline-info" style="margin-left:15px;">
+													alterar
+												</button>
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="position-relative form-group">
+												<label for="add_fullname">Nome</label>
+												<input name="fullname" id="add_fullname" placeholder="nome" autocomplete="nope" type="text" class="form-control">
+												<label for="add_nickname">Apelido</label>
+												<input name="nickname" id="add_nickname" placeholder="apelido" type="text" class="form-control">
+											</div>
+										</div>
+									</div>
+									<div class="divider"></div>
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="add_username" class="">Usuário</label>
+										</div>
+										<div class="col-md-8">
+											<input name="username" id="add_username" placeholder="Usuário" type="text" class="form-control" autocomplete="username">
+										</div>
+									</div>
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="add_role" class="">Função</label>
+										</div>
+										<div class="col-md-8">
+											@Html.DropDownList("add_role",
+																new SelectList(ViewBag.roles),
+																new { @class = "form-control" })
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="add_password">Senha</label>
+										</div>
+										<div class="col-md-8">
+											<label class="validate-label" id="validate_length" style="color:red;">Passwords must be at least 6 characters.</label>
+											<label class="validate-label" id="validate_alpha" style="color:red;">Passwords must be at least one non alphanumeric character.</label>
+											<label class="validate-label" id="validate_digit" style="color:red;">Passwords must have at least one digit('0'-'9').</label>
+											<label class="validate-label" id="validate_upper" style="color:red;">Passwords must have at least one uppercase('A'-'Z').</label>
+											<label class="validate-label" id="validate_lower" style="color:red;">Passwords must have at least one lowercase('a'-'z').</label>
+											<input name="password" id="add_password" autocomplete="new-password" placeholder="Don't tell!" type="password" class="form-control">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light" data-dismiss="modal">Fechar</button>
+								<button type="button" onclick="addAgentAction();" class="btn btn-success">Salvar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Edit Agent -->
+				<div id="agent_profile_edit_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Atendente</h5>
+								<button type="button" class="btn-modal-cloase close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form autocomplete="off">
+									<div class="form-row">
+										<div class="col-md-3">
+											<input type="hidden" name="userid" id="edit_userid" value="@ViewBag.current_agent.Id">
+											<img id="edit_avatarPreview" src="@ViewBag.current_agent.Avatar" alt="your avatar" style="border-color: #cfd1d4;border-style: solid;border-width: 1px;width: 100px;height: 100px;border-radius: 50%;" />
+											<input type='file' name="avatar" id="edit_avatar" class="avatarInp" style="width: 1px;opacity: 0;" />
+											<div>
+												<button id="edit-avatar-change-btn" class="mb-2 mr-2 border-0 btn-transition btn btn-outline-info" style="margin-left:15px;">
+													alterar
+												</button>
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="position-relative form-group">
+												<label for="edit_fullname">Nome</label>
+												<input name="fullname" id="edit_fullname" value="@ViewBag.current_agent.FullName" autocomplete="nope" placeholder="Nome" type="text" class="form-control">
+												<label for="edit_nickname">Apelido</label>
+												<input name="nickname" id="edit_nickname" value="@ViewBag.current_agent.NickName" placeholder="Apelido" type="text" class="form-control">
+											</div>
+										</div>
+									</div>
+									<div class="divider"></div>
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="edit_username" class="">Usuário</label>
+										</div>
+										<div class="col-md-8">
+											<input name="username" id="edit_username" value="@ViewBag.current_agent.Name" placeholder="Usuário" type="text" class="form-control" autocomplete="username">
+										</div>
+									</div>
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="add_role" class="">Função</label>
+										</div>
+										<div class="col-md-8">
+											@Html.DropDownList("edit_role",
+																new SelectList(ViewBag.roles, "Name", "Name", @ViewBag.current_agent.Roles),
+																new { @class = "form-control", @disabled = "disabled" })
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="new_password" class="">Senha</label>
+										</div>
+										<div class="col-md-8">
+											<input name="password" id="new_password" autocomplete="new-password" placeholder="Não diga!" type="password" class="form-control">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light" data-dismiss="modal">Fechar</button>
+								<button type="button" onclick="editAgentAction();" class="btn btn-success">Salvar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Edit Customer-->
+				<div id="customer_profile_edit_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Cliente perfil</h5>
+								<button type="button" class="btn-modal-cloase close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form autocomplete="off">
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="edit_username_c">Usuário</label>
+										</div>
+										<div class="col-md-8">
+											<input name="username_c" id="edit_username_c" placeholder="Usuário" type="text" class="form-control" autocomplete="username">
+										</div>
+									</div>
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="edit_email_c">Email</label>
+										</div>
+										<div class="col-md-8">
+											<input name="email_c" id="edit_email_c" type="email" class="form-control">
+										</div>
+									</div>
+									<div class="form-row" style="margin-bottom: 10px;">
+										<div class="col-md-3" style="padding-top: 7px;text-align: center;">
+											<label for="edit_phone_c">Fone</label>
+										</div>
+										<div class="col-md-8">
+											<input name="phone_c" id="edit_phone_c" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="divider"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card Modal -->
+				<div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="cardModalLabel">
+									<!-- Dynamic card name from API -->
+								</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<div class="contact-info">
+									<p><i class="fa fa-phone"></i> <span id="card_modal_phone"><!-- Dynamic contact phone number from API --></span></p>
+									<p><i class="fa fa-envelope"></i> <span id="card_modal_email"><!-- Dynamic contact email from API --></span></p>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="form-group" id="div-stage-selector">
+									<label>estágio</label>
+									<select class="form-control form-control-sm" name="estágio" id="stage_selector">
+										<!-- Dynamic channel selector -->
+									</select>
+								</div>
+								<div class="custom-fields" id="card_modal_custom_fields">
+									<!-- Dynamic custom fields from API -->
+								</div>
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label for="color_blue" class="btn btn-default btn-card-color active" data-color="blue">
+										<input type="radio" name="cardColors" id="color_blue" value="blue">
+										<span class="color blue"></span>
+									</label>
+									<label for="color_green" class="btn btn-default btn-card-color" data-color="green">
+										<input type="radio" name="cardColors" id="color_green" value="green">
+										<span class="color green"></span>
+									</label>
+									<label for="color_yellow" class="btn btn-default btn-card-color" data-color="yellow">
+										<input type="radio" name="cardColors" id="color_yellow" value="yellow">
+										<span class="color yellow"></span>
+									</label>
+									<label for="color_purple" class="btn btn-default btn-card-color" data-color="purple">
+										<input type="radio" name="cardColors" id="color_purple" value="purple">
+										<span class="color purple"></span>
+									</label>
+									<label for="color_red" class="btn btn-default btn-card-color" data-color="red">
+										<input type="radio" name="cardColors" id="color_red" value="red">
+										<span class="color red"></span>
+									</label>
+									<label for="color_gray" class="btn btn-default btn-card-color" data-color="gray">
+										<input type="radio" name="cardColors" id="color_gray" value="gray">
+										<span class="color gray"></span>
+									</label>
+									<label for="color_white" class="btn btn-default btn-card-color" data-color="white">
+										<input type="radio" name="cardColors" id="color_gray" value="white">
+										<span class="color white"></span>
+									</label>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger btn-delete-card">Excluir</button>
+								<button type="button" class="btn btn-primary btn-update-card">Salvar</button>
+								<div class="button-group delete-confirm">
+									<button type="button" class="btn btn-danger btn-delete-card-confirm">Confirme</button>
+									<button type="button" class="btn btn-default btn-delete-card-cancel">Cancelar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Zom Image Modal -->
+				<div id="zoomImageModal" class="imgzoommodal">
+
+					<!-- The Close Button -->
+					<span class="closeZoomImage">&times;</span>
+
+					<!-- Modal Content (The Image) -->
+					<img class="modal-content" id="img01">
+
+					<!-- Modal Caption (Image Text) -->
+					<div id="caption"></div>
+				</div>
+
+				<!-- Current Variables saved at HTML -->
+				<input type="hidden" id="current_userid" value="@ViewBag.current_agent.Id" />
+				<input type="hidden" id="current_username" value="@ViewBag.current_agent.Name" />
+				<input type="hidden" id="current_fullname" value="@ViewBag.current_agent.FullName" />
+				<input type="hidden" id="current_nickname" value="@ViewBag.current_agent.NickName" />
+				<input type="hidden" id="current_role" value="@ViewBag.current_agent.Roles" />
+				<input type="hidden" id="current_avatar" value="@ViewBag.current_agent.Avatar" />
+				@if ((bool)ViewData["isadmin"])
+				{
+					<input type="hidden" id="isadmin" value="0" />
+				}
+				else
+				{
+					<input type="hidden" id="isadmin" value="1" />
+				}
+
+			</div>
+
+		</div>
+	</main>
+
+	<!-- Scrips -->
+	<script src="~/assets/scripts/jquery-3.5.1.min.js"></script>
+	<script src="~/assets/scripts/bootstrap.min.js"></script>
+	<script src="~/assets/scripts/dateutil.js?ver=1.6"></script>
+	<script src="~/assets/scripts/util.js?ver=1.5"></script>
+	<script src="~/assets/emojionarea/emojionearea.min.js"></script>
+	<script src="~/assets-chatroom/scripts/chatroom.js?ver=2.81"></script>
+	<script src="~/assets-chatroom/scripts/leftsidebar.js?ver=1.4"></script>
+	<script src="~/assets-chatroom/scripts/rightsidebar.js?ver=1.91"></script>
+	<script src="~/assets-chatroom/scripts/chatroomButtons.js"></script>
+	<script src="~/assets-chatroom/recoder/recorder.js"></script>
+	<script src="~/assets-chatroom/recoder/MediaStreamRecorder.js"></script>
+	<script src="~/assets-chatroom/scripts/ImageZoom.js"></script>
+	<script src="~/assets-chatroom/scripts/saveWebPushId.js"></script>
+	<script src="~/assets-chatroom/scripts/vcard.js"></script>
+</body>
+</html>

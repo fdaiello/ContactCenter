@@ -1,0 +1,69 @@
+<div [ngSwitch]="boardField.field.fieldType">
+  <mat-form-field class="full-width">
+    <mat-label>{{boardField.field.label}}</mat-label>
+    <!-- Integer -->
+    <div *ngSwitchCase="0">
+      <input type="number" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- Decimal -->
+    <div *ngSwitchCase="1">
+      <input type="number" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- Money -->
+    <div *ngSwitchCase="2">
+      <input type="number" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- Date -->
+    <div *ngSwitchCase="3">
+      <input type="date" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- Time -->
+    <div *ngSwitchCase="4">
+      <input type="time" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- DateTime -->
+    <div *ngSwitchCase="5">
+      <input type="datetime-local" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- Text -->
+    <div *ngSwitchCase="6">
+      <input type="text" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+    <!-- TextArea -->
+    <div *ngSwitchCase="7">
+      <textarea matInput value="{{boardField.value}}" [(ngModel)]="boardField.value"></textarea>
+    </div>
+    <!-- DataList -->
+    <div *ngSwitchCase="8">
+      <mat-select [(ngModel)]="boardField.value">
+        <mat-option *ngFor="let datalist of boardField.field.dataListValues"
+                    [value]="datalist.value">
+          {{datalist.value}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <!-- Image and Document should be type="file", but it was crashing lay-out **** TODO!!!! Solve file uploading-->
+    <!-- Image -->
+    <div *ngSwitchCase="9">
+      <input type="text" matInput value="{{boardField.value}}" disabled>
+      <button *ngIf="boardField.value" (click)="onOpen()">abrir</button>
+    </div>
+    <!-- Document -->
+    <div *ngSwitchCase="10">
+      <input type="text" matInput value="{{boardField.value}}" hidden>
+      <button *ngIf="boardField.value" (click)="onOpen()" class="upload">abrir</button>
+      <button *ngIf="boardField.value" (click)="onDelete()" class="upload">excluir</button>
+      <button *ngIf="!boardField.value" mat-button color="primary" (click)="fileUpload.click()">localizar</button>
+      <input [hidden]="true" type="file" #fileUpload id="fileUpload" name="fileUpload"  (change)="onFileChange($event)" />
+    </div>
+    <div *ngSwitchDefault>
+      <input type="text" class="form-control form-control-sm" matInput value="{{boardField.value}}" [(ngModel)]="boardField.value" (blur)="updateValue()">
+    </div>
+  </mat-form-field>
+</div>
+
+<!--
+
+https://www.itsolutionstuff.com/post/angular-11-file-upload-exampleexample.html
+
+-->

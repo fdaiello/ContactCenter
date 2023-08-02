@@ -1,0 +1,43 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+	ViewData["Title"] = "Contact Center | Admin";
+	Layout = "_Layout";
+}
+
+<script src="~/assets-admin/scripts/GroupCampaigns.js?v=1.29"></script>
+
+<p class="app-sidebar__heading">Campanhas</p>
+
+<div class="col-md-12">
+	<table id="groupcampaigns-grid" class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Imagem</th>
+				<th>Status</th>
+				<th>Nome</th>
+				<th>Início</th>
+				<th>Link</th>
+				<th>Grupos</th>
+				<th>Clicks</th>
+				<th>Leads</th>
+				<th>Membros</th>
+				<th style="text-align: right;">
+					Ação
+					<a title="Nova Campanha"
+					   data-toggle="modal"
+					   data-target="#modal-groupcampaign"
+					   class="add-row btn btn-primary"
+					   aria-describedby="Campanha"
+					   onclick="clearGroupCampaignModal()">
+						<i class="fa fa-plus"></i>
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>

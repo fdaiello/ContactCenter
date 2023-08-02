@@ -1,0 +1,1680 @@
+/** Login css **/
+html, body {
+    height: 100%;
+    min-height: 500px;
+    font-size: 90%;
+}
+
+.c-font {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.l-s {
+    letter-spacing: 5px;
+}
+
+.f-90 {
+    font-size: 90%;
+}
+
+.f-110 {
+    font-size: 110%;
+}
+
+.f-120 {
+    font-size: 120%;
+}
+
+.left-back {
+    background: url("../images/splash.png") no-repeat center bottom, linear-gradient(#242348, #56519e);
+    background-size: contain;
+}
+
+.light-back {
+    background-color: #F5F9FC;
+}
+
+.flex-fill {
+    flex: 1;
+}
+
+.bottom-c-0 {
+    bottom: 0;
+}
+
+.text-p, a.text-p:link, a.text-p:hover, a.text-p:active, a.text-p:visited {
+    color: #354052;
+}
+
+.back-p, .btn.back-p {
+    background-color: #354052 !important;
+}
+
+.btn:focus, .btn:active, input.form-control, input, button {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.form-group.input-material {
+    position: relative;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+    .form-group.input-material label {
+        color: #354052;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 7px;
+        transition: 0.1s ease all;
+        -moz-transition: 0.1s ease all;
+        -webkit-transition: 0.1s ease all;
+    }
+
+    .form-group.input-material .form-control {
+        border: none;
+        border-bottom: 2px solid #ced4da;
+        border-radius: 0px;
+        background: transparent;
+        padding-left: 5px;
+        box-shadow: none;
+        /* active state */
+        /* invalid state */
+    }
+
+        .form-group.input-material .form-control:focus, .form-group.input-material .form-control[value]:not([value=""]) {
+            border-bottom-color: #354052;
+            color: #000;
+        }
+
+            .form-group.input-material .form-control:focus ~ label, .form-group.input-material .form-control[value]:not([value=""]) ~ label {
+                top: -15px;
+                color: #354052;
+                font-weight: 500;
+            }
+
+            .form-group.input-material .form-control:focus.invalid, .form-group.input-material .form-control.invalid, .form-group.input-material .form-control:focus.parsley-error, .form-group.input-material .form-control[value]:not([value=""]).parsley-error {
+                border-bottom-color: #dc3545;
+            }
+
+                .form-group.input-material .form-control:focus.invalid ~ label, .form-group.input-material .form-control.invalid ~ label, .form-group.input-material .form-control:focus.parsley-error ~ label, .form-group.input-material .form-control[value]:not([value=""]).parsley-error ~ label {
+                    color: #dc3545;
+                }
+
+    .form-group.input-material .parsley-errors-list {
+        color: #dc3545;
+        list-style: none;
+        font-size: 0.7em;
+        padding-left: 5px;
+    }
+
+.custom-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    .custom-check input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: white;
+    border: 1px #ccc solid;
+    border-radius: 3px;
+}
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+/* Show the checkmark when checked */
+.custom-check input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-check .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #666666;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/*** ends here ***/
+
+
+
+/** Home .css **/
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 60px;
+    -webkit-transition: width 0.2s; /* Safari prior 6.1 */
+    transition: width 0.2s;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+}
+
+    .sidebar.open {
+        display: block;
+        width: 250px;
+        -webkit-transition: width 0.2s; /* Safari prior 6.1 */
+        transition: width 0.2s;
+    }
+
+.top {
+    display: flex;
+    flex-direction: row;
+    height: 70px;
+}
+
+    .top .left {
+        display: none;
+        background-color: #354052;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+        .top .left span {
+            white-space: nowrap;
+        }
+
+.open .top .left {
+    display: flex;
+}
+
+.top .right {
+    display: flex;
+    width: 60px;
+    background: #354052;
+}
+
+.content {
+    overflow: auto;
+}
+
+.cd-center {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.back-p-s {
+    background-color: #36354a;
+}
+
+.c-pointer {
+    cursor: pointer;
+}
+
+.main-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.main-nav li {
+    border-left: 5px transparent solid;
+}
+
+    .main-nav li.active {
+        border-left: 5px #2d3646 solid;
+        background-color: #2d3646;
+        border-left: 4px #a8a5ff solid;
+    }
+
+    .main-nav li:hover {
+        background-color: #2d3646;
+        border-left-color: #a8a5ff;
+        border-left: 4px #a8a5ff solid;
+    }
+
+    .main-nav li a {
+        display: block;
+        text-align: center;
+        padding: 14px;
+    }
+
+        .main-nav li a span {
+            display: none;
+            padding-left: 15px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+.open .main-nav li a span {
+    display: inline-block;
+}
+
+.open .main-nav li a {
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.main-nav li a:hover, .main-nav li a:active, .main-nav li a:visited {
+    text-decoration: none;
+    outline: none;
+}
+
+/** Header csss **/
+.h-60 {
+    height: 70px;
+}
+
+.usercon {
+    width: 250px;
+}
+
+.menu-con {
+    display: none;
+}
+
+.new-count:after {
+    content: ' ';
+    position: absolute;
+    margin-left: -8px;
+    width: 10px;
+    height: 10px;
+    border: 2px #fff solid;
+    border-radius: 50%;
+    background-color: #ffc107;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+div.dropdown-menu {
+    border-radius: 0 !important;
+    padding: 15px 25px;
+    box-shadow: 0px 0px 10px 3px #ddd;
+    border: 0px;
+}
+
+div.drop-con.show::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    left: 50%;
+    bottom: -2px;
+    margin-left: -4px;
+    border-width: 10px 8px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: #fff;
+    z-index: 1001;
+}
+
+div.dropdown-menu a {
+    text-align: center;
+    font-weight: 500;
+    padding: 1rem 2.5rem;
+    border-bottom: 1px #f5f5f5 solid;
+    -webkit-tap-highlight-color: transparent;
+    background: transparent;
+}
+
+    div.dropdown-menu a:focus, div.dropdown-menu a:visited {
+        background: none;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+/** Side bar should be positioned as overlay **/
+@media (max-width: 767px) {
+    .sidebar.s-open {
+        display: none;
+    }
+
+    .sidebar {
+        position: absolute;
+        width: 0px;
+        overflow: hidden;
+        -webkit-transition: all 0.2s; /* Safari prior 6.1 */
+        transition: all 0.2s;
+    }
+
+        .sidebar.open {
+            position: absolute;
+            z-index: 999;
+            width: 250px;
+            -webkit-transition: all 0.2s; /* Safari prior 6.1 */
+            transition: all 0.2s;
+            box-shadow: 2px 2px 10px 2px #888;
+        }
+
+    .usercon {
+        width: auto;
+    }
+
+        .usercon .pro-name {
+            display: none !important;
+        }
+
+    .menu-con {
+        display: flex;
+    }
+}
+
+.h4, h4 {
+    font-size: 1.9rem;
+}
+
+.text-read {
+    color: #9fa8ae !important;
+    font-weight: 500;
+}
+
+.text-secondary {
+    color: #28333d !important;
+}
+
+.fa-color {
+    color: #c7cacd;
+}
+
+.h5, h5 {
+    font-size: 1.8rem;
+    color: #413e3e;
+    font-weight: 400;
+}
+
+.ml-4, .mx-4 {
+    margin-left: 1.6em !important;
+}
+
+
+.form-login {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    box-shadow: 10px 10px 40px rgba(101, 100, 100, 0.04);
+    background-color: #fff;
+}
+
+.btn-center {
+    text-align: center;
+    font-size: 104%;
+}
+
+.img-logo {
+    width: 200px;
+}
+
+/*#frame {
+    border: none;
+    margin-left: -70px;
+    margin-top: -24px;
+}
+
+.ParametersFrameAnother {
+    background-color: #f0f0f7 !important;
+    border-color: #f0f0f7 !important;
+}
+
+#framePlatelet  {
+    margin-top: 15px;
+}
+
+#frameData {
+    margin-top: 15px;
+}
+#frameunit {
+    margin-top: 15px;
+}*/
+
+
+div#content {
+    position: fixed;
+    top: 80px;
+    /*left: 260px;*/
+    bottom: 25px;
+    min-width: 200px;
+    width: 87%;
+    background: white;
+    margin: 14px;
+    padding: 20px;
+    border: 1px solid #E5E9F2;
+    border-radius: 0.2rem;
+}
+
+    div#content iframe {
+        /*position: absolute;*/
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+
+/* Home Page*/
+/*! CSS Used from: Embedded */
+.ng-hide:not(.ng-hide-animate) {
+    display: none !important;
+}
+/*! CSS Used from: http://52.191.118.216/Reports/assets/css/lib-65203e6b-e896-4b91-be57-7671ca55a643.css */
+header, section {
+    display: block;
+}
+
+canvas {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+a {
+    background-color: transparent;
+}
+
+    a:active, a:hover {
+        outline: 0;
+    }
+
+b {
+    font-weight: bold;
+}
+
+small {
+    font-size: 80%;
+}
+
+@media print {
+    *, *:before, *:after {
+        color: #000 !important;
+        text-shadow: none !important;
+        background: transparent !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    a, a:visited {
+        text-decoration: underline;
+    }
+
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+
+        a[href^="#"]:after, a[href^="javascript:"]:after {
+            content: "";
+        }
+
+    h2 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2 {
+        page-break-after: avoid;
+    }
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    *:before, *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+    a:hover, a:focus {
+        color: #23527c;
+        text-decoration: underline;
+    }
+
+    a:focus {
+        outline: thin dotted;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+    }
+
+[role="button"] {
+    cursor: pointer;
+}
+
+h2 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+    h2 small {
+        font-weight: normal;
+        line-height: 1;
+        color: #777;
+    }
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+    h2 small {
+        font-size: 65%;
+    }
+
+h2 {
+    font-size: 30px;
+}
+
+small {
+    font-size: 85%;
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+    .clearfix:before, .clearfix:after, .container-fluid:before, .container-fluid:after {
+        display: table;
+        content: " ";
+    }
+
+    .clearfix:after, .container-fluid:after {
+        clear: both;
+    }
+
+@media (max-width: 767px) {
+    .hidden-xs {
+        display: none !important;
+    }
+}
+/*! CSS Used from: http://52.191.118.216/Reports/assets/css/app-65203e6b-e896-4b91-be57-7671ca55a643.css */
+a, a:focus, a:hover {
+    color: #0be;
+}
+
+    a:focus {
+        outline: currentColor dotted 2px !important;
+    }
+
+.glyphui {
+    display: inline-block;
+    font-family: PowerBIGlyphs-regular;
+}
+
+.glyphui {
+    position: relative;
+    top: 2px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphui-ellipsis {
+    font-weight: 700;
+}
+
+a:hover .glyphui {
+    text-decoration: none;
+}
+
+.glyphui-ellipsis:before {
+    content: "\e712";
+}
+
+.glyphui-links:before {
+    content: "\e71b";
+}
+
+.glyphui-star:before {
+    content: "\e735";
+}
+
+.glyphui-report:before {
+    content: "\e9f9";
+}
+
+.glyphui-powerbi:before {
+    content: "\ea03";
+}
+
+.glyphui-excel:before {
+    content: "\ec28";
+}
+
+.glyphui-resource-generic:before {
+    content: "\eac2";
+}
+
+.kpi, .kpi b {
+    font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+header {
+    position: relative;
+}
+
+.tiles a.context .more {
+    font-weight: 700;
+}
+
+div.browser header {
+    min-height: 40px;
+    cursor: default;
+}
+
+    div.browser header h2 {
+        font-size: 22px;
+        margin: 0;
+        padding: 8px 0 0;
+    }
+
+    div.browser header .count {
+        font-size: 14px;
+        color: #a6a6a6;
+    }
+
+div.browser .tiles {
+    padding-bottom: 8px;
+}
+
+    div.browser .tiles ul {
+        margin: 0 -15px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    div.browser .tiles li {
+        float: left;
+        width: 240px;
+        height: 72px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        position: relative;
+        transition: background-color .1s;
+    }
+
+    div.browser .tiles a.tile {
+        display: block;
+        width: 240px;
+        height: 72px;
+        font-size: 14px;
+        line-height: 17px;
+        overflow: hidden;
+        text-decoration: none;
+        transition: background-color .1s,color .1s,border-color .1s;
+    }
+
+        div.browser .tiles a.tile:active, div.browser .tiles a.tile:focus, div.browser .tiles a.tile:hover {
+            text-decoration: none;
+        }
+
+.tiles a.context {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 8px 2px;
+    color: #000;
+    background-color: transparent;
+    transition: color .1s,background-color .1s;
+}
+
+    .tiles a.context:active, .tiles a.context:focus, .tiles a.context:hover {
+        text-decoration: none;
+        color: inherit;
+        background-color: rgba(255,255,255,.3);
+    }
+
+    .tiles a.context .favorite {
+        font-size: .8em;
+        top: 1px;
+    }
+
+    .tiles a.context .more span {
+        font-size: normal;
+        padding: 0 1px;
+    }
+
+.tiles a.tile:focus {
+    outline: 0 !important;
+}
+
+section.items {
+    padding: 16px 0 12px;
+}
+
+    section.items header {
+        min-height: auto;
+        line-height: normal;
+    }
+
+        section.items header h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 0;
+            line-height: 28px;
+        }
+
+        section.items header span {
+            font-weight: 600;
+        }
+
+        section.items header .count {
+            font-size: 14px;
+            color: #a6a6a6;
+        }
+
+.kpi, .kpi b {
+    font-weight: 400;
+}
+
+.kpi-good {
+    background-color: #4fb443;
+}
+
+.kpi-bad {
+    background-color: #de061a;
+}
+
+.kpi-neutral {
+    background-color: #d9b42c;
+}
+
+.kpi a.tile {
+    position: relative;
+    color: #fff;
+    background-color: inherit;
+}
+
+    .kpi a.tile .overlay, .kpi a.tile .overlay .inner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transition: opacity .1s;
+        left: 0;
+        bottom: 0;
+    }
+
+    .kpi a.tile:active, .kpi a.tile:focus, .kpi a.tile:hover {
+        text-decoration: none;
+    }
+
+    .kpi a.tile .overlay {
+        border: 1px solid #000;
+        opacity: .15;
+    }
+
+        .kpi a.tile .overlay .inner {
+            border: 1px solid #fff;
+            opacity: 0;
+        }
+
+    .kpi a.tile:focus .overlay, .kpi a.tile:focus .overlay .inner, .kpi a.tile:hover .overlay, .kpi a.tile:hover .overlay .inner {
+        opacity: 1;
+    }
+
+    .kpi a.tile .name {
+        display: block;
+        margin: 0;
+        padding: 0 8px;
+        width: 192px;
+        height: 24px;
+        line-height: 24px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kpi a.tile .no-chart .microchart {
+        display: none;
+    }
+
+    .kpi a.tile .metrics {
+        float: left;
+        padding: 0 0 0 8px;
+        font-size: 28px;
+        line-height: 40px;
+        width: 160px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 39px;
+    }
+
+        .kpi a.tile .metrics i {
+            font-size: 12px;
+            font-weight: 400;
+            font-style: normal;
+            padding: 0 0 0 4px;
+        }
+
+    .kpi a.tile .microchart {
+        float: right;
+        width: 64px;
+        height: 40px;
+        margin-right: 8px;
+    }
+
+    .kpi a.tile .no-chart .metrics {
+        width: 100%;
+    }
+
+.kpi a.context {
+    color: #fff;
+}
+
+    .kpi a.context:active, .kpi a.context:focus, .kpi a.context:hover {
+        color: #fff;
+        background-color: rgba(255,255,255,.3);
+    }
+
+section.reports .tiles a.tile {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+}
+
+    section.reports .tiles a.tile:active, section.reports .tiles a.tile:focus, section.reports .tiles a.tile:hover {
+        border: 1px solid #000;
+    }
+
+    section.reports .tiles a.tile .icon {
+        float: left;
+        width: 48px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+        font-size: 28px;
+    }
+
+        section.reports .tiles a.tile .icon .glyphui {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    section.reports .tiles a.tile .text {
+        float: left;
+        width: 170px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+    }
+
+        section.reports .tiles a.tile .text .name {
+            display: table-cell;
+            vertical-align: middle;
+            max-width: 160px;
+            word-wrap: break-word;
+        }
+
+section.excel .tiles a.tile .text .name, section.powerbireports .tiles a.tile .text .name, section.resources .tiles a.tile .text .name {
+    max-width: 170px;
+    word-wrap: break-word;
+    vertical-align: middle;
+}
+
+section.reports .tiles a.context {
+    color: #454545;
+}
+
+    section.reports .tiles a.context:active, section.reports .tiles a.context:focus, section.reports .tiles a.context:hover {
+        color: #000;
+        background-color: rgba(0,0,0,.1);
+    }
+
+section.resources .tiles a.tile {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+}
+
+    section.resources .tiles a.tile:active, section.resources .tiles a.tile:focus, section.resources .tiles a.tile:hover {
+        border: 1px solid #000;
+    }
+
+    section.resources .tiles a.tile .icon {
+        float: left;
+        width: 48px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+        font-size: 28px;
+    }
+
+        section.resources .tiles a.tile .icon .glyphui {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    section.resources .tiles a.tile .text {
+        float: left;
+        width: 170px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+    }
+
+        section.resources .tiles a.tile .text .name {
+            display: table-cell;
+        }
+
+section.resources .tiles a.context {
+    color: #454545;
+}
+
+    section.resources .tiles a.context:active, section.resources .tiles a.context:focus, section.resources .tiles a.context:hover {
+        color: #000;
+        background-color: rgba(0,0,0,.1);
+    }
+
+section.excel .tiles a.tile {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+}
+
+    section.excel .tiles a.tile:active, section.excel .tiles a.tile:focus, section.excel .tiles a.tile:hover {
+        border: 1px solid #000;
+    }
+
+    section.excel .tiles a.tile .icon {
+        float: left;
+        width: 48px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+        font-size: 28px;
+    }
+
+        section.excel .tiles a.tile .icon .glyphui {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    section.excel .tiles a.tile .text {
+        float: left;
+        width: 170px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+    }
+
+        section.excel .tiles a.tile .text .name {
+            display: table-cell;
+        }
+
+section.excel .tiles a.context {
+    color: #454545;
+}
+
+    section.excel .tiles a.context:active, section.excel .tiles a.context:focus, section.excel .tiles a.context:hover {
+        color: #000;
+        background-color: rgba(0,0,0,.1);
+    }
+
+section.powerbireports .tiles a.tile {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+}
+
+    section.powerbireports .tiles a.tile:active, section.powerbireports .tiles a.tile:focus, section.powerbireports .tiles a.tile:hover {
+        border: 1px solid #000;
+    }
+
+    section.powerbireports .tiles a.tile .icon {
+        float: left;
+        width: 48px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+        font-size: 28px;
+    }
+
+        section.powerbireports .tiles a.tile .icon .glyphui {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    section.powerbireports .tiles a.tile .text {
+        float: left;
+        width: 170px;
+        height: 72px;
+        display: table;
+        overflow: hidden;
+    }
+
+        section.powerbireports .tiles a.tile .text .name {
+            display: table-cell;
+        }
+
+section.powerbireports .tiles a.context {
+    color: #454545;
+}
+
+    section.powerbireports .tiles a.context:active, section.powerbireports .tiles a.context:focus, section.powerbireports .tiles a.context:hover {
+        color: #000;
+        background-color: rgba(0,0,0,.1);
+    }
+
+.screen-reader-offscreen {
+    position: absolute;
+    left: -999px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    overflow: hidden;
+}
+
+.multiline-ellipsis {
+    display: block;
+    position: relative;
+    word-wrap: break-word;
+    line-height: 20px;
+    max-height: 68px;
+    overflow: hidden;
+}
+
+    .multiline-ellipsis::before {
+        content: '\2026';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+    }
+
+    .multiline-ellipsis::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 1em;
+        height: 1em;
+        margin-top: .2em;
+        background: #fff;
+    }
+
+@media screen and (max-width:767px) {
+    section.excel .tiles a.tile .text .name, section.powerbireports .tiles a.tile .text .name, section.reports .tiles a.tile .text .name {
+        max-width: 110px;
+    }
+
+    div.browser .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    div.browser header h2 {
+        font-size: 16px;
+        line-height: 25px;
+    }
+
+    div.browser header .count {
+        font-size: 10px;
+    }
+
+    div.browser .tiles {
+        padding-bottom: 4px;
+    }
+
+        div.browser .tiles ul {
+            margin-right: -10px;
+        }
+
+        div.browser .tiles li {
+            height: 46px;
+            overflow: hidden;
+            width: 146px;
+        }
+
+        div.browser .tiles a.tile {
+            font-size: 10px;
+            height: 46px;
+            line-height: 12px;
+            width: 146px;
+        }
+
+        div.browser .tiles a.context {
+            padding: 0 4px 2px;
+        }
+
+            div.browser .tiles a.context .favorite {
+                font-size: .8em;
+                top: 1px;
+                margin-right: -2px;
+            }
+
+            div.browser .tiles a.context .more {
+                font-weight: 700;
+            }
+
+                div.browser .tiles a.context .more span {
+                    font-size: normal;
+                    padding: 0;
+                }
+
+    section.items {
+        padding: 6px 0 8px;
+    }
+
+        section.items header {
+            min-height: auto;
+            line-height: normal;
+        }
+
+            section.items header h2 {
+                font-size: 12px;
+            }
+
+    section.kpis .tiles a.tile .name {
+        width: 110px;
+        padding-left: 6px;
+        line-height: 18px;
+        height: 18px;
+    }
+
+    section.kpis .tiles a.tile .metrics {
+        padding: 0 0 0 6px;
+        font-size: 15px;
+        width: 100px;
+        height: 28px;
+        line-height: 24px;
+    }
+
+        section.kpis .tiles a.tile .metrics i {
+            font-size: 10px;
+            font-weight: 700;
+            font-style: normal;
+            padding: 0 0 0 2px;
+        }
+
+    section.kpis .tiles a.tile .microchart {
+        width: 72px;
+        height: 52px;
+    }
+
+    section.reports .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.reports .tiles a.tile .text {
+        width: 110px;
+        height: 46px;
+    }
+
+    section.powerbireports .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.powerbireports .tiles a.tile .text {
+        width: 110px;
+        height: 46px;
+    }
+
+    section.excel .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.excel .tiles a.tile .text {
+        width: 110px;
+        height: 46px;
+    }
+}
+
+@media screen and (max-width:374px) {
+    div.browser .tiles ul {
+        margin-right: -10px;
+    }
+
+    div.browser .tiles li {
+        height: 46px;
+        width: 146px;
+    }
+
+    div.browser .tiles a.tile {
+        font-size: 10px;
+        height: 46px;
+        line-height: 12px;
+        width: 146px;
+    }
+
+    section.excel .tiles a.tile .text .name, section.powerbireports .tiles a.tile .text .name, section.reports .tiles a.tile .text .name {
+        max-width: 90px;
+    }
+
+    div.browser .tiles a.context {
+        padding: 0 3px;
+        font-size: 13px;
+        line-height: 17px;
+        height: 17px;
+    }
+
+        div.browser .tiles a.context .favorite {
+            font-size: .8em;
+            top: 1px;
+            margin-right: -2px;
+        }
+
+        div.browser .tiles a.context .more span {
+            padding: 0;
+        }
+
+    section.kpis .tiles a.tile .name {
+        width: 110px;
+        padding-left: 6px;
+        line-height: 18px;
+        height: 18px;
+    }
+
+    section.kpis .tiles a.tile .metrics {
+        padding: 0 0 0 6px;
+        font-size: 15px;
+        width: 100px;
+        height: 28px;
+        line-height: 24px;
+    }
+
+        section.kpis .tiles a.tile .metrics i {
+            font-size: 10px;
+            padding: 0 0 0 2px;
+        }
+
+    section.kpis .tiles a.tile .microchart {
+        width: 40px;
+        height: 26px;
+        margin: -1px 2px 0 0;
+    }
+
+    section.reports .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.reports .tiles a.tile .text {
+        width: 90px;
+        height: 46px;
+    }
+
+    section.powerbireports .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.powerbireports .tiles a.tile .text {
+        width: 90px;
+        height: 46px;
+    }
+
+    section.excel .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.excel .tiles a.tile .text {
+        width: 90px;
+        height: 46px;
+    }
+
+    .multiline-ellipsis {
+        line-height: 13px;
+        max-height: 39px;
+    }
+}
+
+@media screen and (min-width:375px) and (max-width:767px) {
+    div.browser .tiles ul {
+        margin-right: -10px;
+    }
+
+    div.browser .tiles li {
+        height: 50px;
+        width: 172px;
+    }
+
+    div.browser .tiles a.tile {
+        font-size: 10px;
+        height: 50px;
+        line-height: 16px;
+        width: 172px;
+    }
+
+    div.browser .tiles a.context {
+        padding: 0 3px;
+        font-size: 13px;
+        line-height: 17px;
+        height: 17px;
+    }
+
+        div.browser .tiles a.context .favorite {
+            font-size: .8em;
+            top: 1px;
+            margin-right: -2px;
+        }
+
+        div.browser .tiles a.context .more span {
+            padding: 0;
+        }
+
+    section.kpis .tiles a.tile .name {
+        width: 136px;
+        padding-left: 6px;
+        line-height: 18px;
+        height: 18px;
+    }
+
+    section.kpis .tiles a.tile .metrics {
+        padding: 0 5px;
+        font-size: 15px;
+        width: 122px;
+        height: 30px;
+        line-height: 29px;
+    }
+
+        section.kpis .tiles a.tile .metrics i {
+            font-size: 10px;
+            padding: 0 0 0 3px;
+        }
+
+    section.kpis .tiles a.tile .microchart {
+        width: 45px;
+        height: 25px;
+        margin-top: 2px;
+        margin-right: 5px;
+    }
+
+    section.reports .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.reports .tiles a.tile .text {
+        width: 120px;
+        height: 46px;
+    }
+
+    section.powerbireports .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.powerbireports .tiles a.tile .text {
+        width: 120px;
+        height: 46px;
+    }
+
+    section.excel .tiles a.tile .icon {
+        width: 28px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    section.excel .tiles a.tile .text {
+        width: 120px;
+        height: 46px;
+    }
+
+    .multiline-ellipsis {
+        line-height: 15px;
+        max-height: 45px;
+    }
+}
+/*! CSS Used from: http://52.191.118.216/Reports/assets/css/brand.css */
+a {
+    color: #2066fb;
+}
+
+    a:hover, a:focus {
+        color: #2066fb;
+    }
+
+div.browser header h2 {
+    color: #333333;
+}
+
+div.browser header .count {
+    color: #333333;
+}
+
+.tiles a.context {
+    color: #333333;
+    background-color: transparent;
+}
+
+    .tiles a.context:hover, .tiles a.context:focus, .tiles a.context:active {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+.kpi-good {
+    background-color: #79c75b;
+}
+
+.kpi-bad {
+    background-color: #c0433a;
+}
+
+.kpi-neutral {
+    background-color: #cda521;
+}
+
+.kpi a.tile {
+    color: white;
+}
+
+.kpi-good a.tile {
+    color: white;
+}
+
+.kpi-bad a.tile {
+    color: white;
+}
+
+.kpi-neutral {
+    color: white;
+}
+
+.kpi a.tile .overlay {
+    border-color: #333333;
+    opacity: 0.15;
+}
+
+    .kpi a.tile .overlay .inner {
+        border-color: white;
+    }
+
+.kpi a.context {
+    color: white;
+}
+
+    .kpi a.context:hover, .kpi a.context:focus, .kpi a.context:active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+.kpi-good a.context {
+    color: white;
+}
+
+    .kpi-good a.context:hover, .kpi-good a.context:focus, .kpi-good a.context:active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+.kpi-bad a.context {
+    color: white;
+}
+
+    .kpi-bad a.context:hover, .kpi-bad a.context:focus, .kpi-bad a.context:active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+.kpi-neutral a.context {
+    color: white;
+}
+
+    .kpi-neutral a.context:hover, .kpi-neutral a.context:focus, .kpi-neutral a.context:active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+section.reports .tiles a.tile {
+    color: #333333;
+    background-color: white;
+    border-color: rgba(51, 51, 51, 0.15);
+}
+
+    section.reports .tiles a.tile:hover, section.reports .tiles a.tile:active, section.reports .tiles a.tile:focus {
+        color: #333333;
+        border-color: #333333;
+    }
+
+section.reports .tiles a.context {
+    color: #333333;
+}
+
+    section.reports .tiles a.context:hover, section.reports .tiles a.context:focus, section.reports .tiles a.context:active {
+        color: #333333;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
+
+section.powerbireports .tiles a.tile {
+    color: #333333;
+    background-color: white;
+    border-color: rgba(51, 51, 51, 0.15);
+}
+
+    section.powerbireports .tiles a.tile:hover, section.powerbireports .tiles a.tile:active, section.powerbireports .tiles a.tile:focus {
+        color: #333333;
+        border-color: #333333;
+    }
+
+section.powerbireports .tiles a.context {
+    color: #333333;
+}
+
+    section.powerbireports .tiles a.context:hover, section.powerbireports .tiles a.context:focus, section.powerbireports .tiles a.context:active {
+        color: #333333;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
+
+section.excel .tiles a.tile {
+    color: #333333;
+    background-color: white;
+    border-color: rgba(51, 51, 51, 0.15);
+}
+
+    section.excel .tiles a.tile:hover, section.excel .tiles a.tile:active, section.excel .tiles a.tile:focus {
+        color: #333333;
+        border-color: #333333;
+    }
+
+section.excel .tiles a.context {
+    color: #333333;
+}
+
+    section.excel .tiles a.context:hover, section.excel .tiles a.context:focus, section.excel .tiles a.context:active {
+        color: #333333;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
+
+section.resources .tiles a.tile {
+    color: #333333;
+    background-color: white;
+    border-color: rgba(51, 51, 51, 0.15);
+}
+
+    section.resources .tiles a.tile:hover, section.resources .tiles a.tile:active, section.resources .tiles a.tile:focus {
+        color: #333333;
+        border-color: #333333;
+    }
+
+section.resources .tiles a.context {
+    color: #333333;
+}
+
+    section.resources .tiles a.context:hover, section.resources .tiles a.context:focus, section.resources .tiles a.context:active {
+        color: #333333;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
+
+.multiline-ellipsis::before {
+    background: white;
+}
+
+.multiline-ellipsis::after {
+    background: white;
+}
+/*! CSS Used fontfaces */
+@font-face {
+    font-family: PowerBIGlyphs-regular;
+    src: url(http://52.191.118.216/Reports/assets/fonts/powerbiglyphs-regular.eot);
+    src: url(http://52.191.118.216/Reports/assets/fonts/powerbiglyphs-regular.eot#iefix) format("embedded-opentype"),url(http://52.191.118.216/Reports/assets/fonts/powerbiglyphs-regular.woff) format("woff"),url(http://52.191.118.216/Reports/assets/fonts/powerbiglyphs-regular.ttf) format("truetype"),url(http://52.191.118.216/Reports/assets/fonts/powerbiglyphs-regular.svg#PowerBIGlyphs-regular) format("svg");
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+
+.text-white {
+    color: #ced4da !important
+}
+
+    .text-white:hover, .active .text-white {
+        color: #f0f0f1 !important
+    }

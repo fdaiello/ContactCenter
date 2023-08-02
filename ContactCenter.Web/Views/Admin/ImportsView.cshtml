@@ -1,0 +1,40 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+	ViewData["Title"] = "Contact Center | Admin";
+	Layout = "_Layout";
+}
+
+<script src="~/assets-admin/scripts/Imports.js?ver=1.12"></script>
+
+<p class="app-sidebar__heading">Importações</p>
+
+<div class="col-md-12">
+	<table id="imports-grid" class="table table-bordered table-striped">
+		<thead>
+            <tr>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Lista</th>
+                <th>Arquivo</th>
+                <th>Total</th>
+                <th>Importados</th>
+                <th style="text-align: right;">
+                    Importar
+					<a title="Nova importação"
+					   data-toggle="modal"
+					   data-target="#modal-import"
+					   class="add-row btn btn-primary"
+					   aria-describedby="Nova importação"
+					   onclick="clearImportModal()">
+						<i class="fa fa-plus"></i>
+					</a>
+                </th>
+            </tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,21 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+	ViewData["Title"] = "Contact Center | Admin";
+	Layout = "_Layout";
+}
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script type='text/javascript' src='~/assets-admin/unitegallery/js/unitegallery.min.js'></script>
+
+<link rel='stylesheet' href='~/assets-admin/unitegallery/css/unite-gallery.css' type='text/css' />
+<script type='text/javascript' src='~/assets-admin/unitegallery/themes/carousel/ug-theme-carousel.js'></script>
+<link rel='stylesheet' href='~/assets-admin/unitegallery/themes/default/ug-theme-default.css' type='text/css' />
+
+<script src="~/assets-admin/scripts/Templates.js"></script>
+
+<p class="app-sidebar__heading">Escolha o template</p>
+
+<div id="gallery" style="display:none;">
+</div>

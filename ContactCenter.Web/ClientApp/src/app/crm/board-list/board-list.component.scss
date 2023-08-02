@@ -1,0 +1,48 @@
+.form-board-select {
+  position: fixed;
+  top: 8px;
+  left: 320px;
+  z-index: 2;
+
+  ::ng-deep .mat-select {
+    .mat-select-value {
+      color: #fff;
+    }
+
+    .mat-select-arrow {
+      color: white;
+    }
+  }
+
+  ::ng-deep .mat-form-field {
+    .mat-form-field-underline {
+      background-color: white;
+    }
+
+    .mat-form-field-label {
+      color: white;
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  .form-board-select {
+    left: 82px;
+    top: 0px;
+ }
+}
+
+.mat-button-toggle-group {
+  margin-left: 20px;
+}
+
+.mat-button-toggle-button {
+  background-color: #8d4aa7
+}
+
+.boardlist {
+    width: 200px;
+}
+
+.tooglebuttons {
+    margin-left: 50px
+}

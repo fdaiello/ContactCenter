@@ -1,0 +1,71 @@
+table{
+	width: 100%!important;
+}
+#department-grid_wrapper, #group-grid_wrapper, #role-grid_wrapper, #user-grid_wrapper, #user-grid_wrapper, #messages-grid_wrapper, #sendings-grid_wrapper {
+    display: inline;
+}
+#department-grid_filter, #department-grid_paginate, #group-grid_filter, #group-grid_paginate, #role-grid_filter, #role-grid_paginate, #user-grid_filter, #user-grid_paginate, #messages-grid_paginate, #sendings-grid_paginate {
+    float: right;
+}
+
+.edit-icon-custom {
+    background: url(images/edit.png) no-repeat;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    float: right;
+    border: none !important;
+    padding: 0px !important;
+    padding-bottom: 0px !important;
+    margin-left: 5px;
+    display: block;
+}
+.delete-icon-custom {
+    background: url(images/close.png) no-repeat;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    float: right;
+    border: none !important;
+    padding: 0px !important;
+    padding-bottom: 0px !important;
+    margin-left: 5px;
+    display: block;
+}
+.add-icon-custom {
+    background: url(images/add.png) no-repeat;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    float: right;
+    border: none !important;
+    padding: 0px !important;
+    padding-bottom: 0px !important;
+    margin-left: 5px;
+    display: block;
+}
+.magnifier-icon-custom {
+    background: url(images/magnifier.png) no-repeat;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    float: right;
+    border: none !important;
+    padding: 0px !important;
+    padding-bottom: 0px !important;
+    margin-left: 5px;
+    display: block;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #00c0ef!important;
+    border: 1px solid #00a7d0!important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff!important;
+}
+td {
+    white-space: nowrap!important;
+}
+table.table-bordered.dataTable tbody td.dt-right {
+    text-align: right;
+}

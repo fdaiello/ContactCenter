@@ -1,0 +1,107 @@
+﻿@using ContactCenter.Core.Models
+@using ContactCenter.Models.view
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Admin";
+    Layout = "_Layout";
+}
+<!--
+https://www.chartjs.org/samples/latest/charts/area/line-boundaries.html
+-->
+
+<div class="row dashboard-title">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Período: </label>
+            <div class="form-row mx-0">
+                <input class="form-control col-sm-5" type="date" data-date-format="dd/mm/yyyy" placeholder="dd-mm-yyyy" id="filter_fdate" value="@ViewData["FilterFromDate"]" min="@ViewBag.StartDate" max="@ViewBag.EndDate" />
+                <span class="dashboard-date-spacer">a</span>
+                <input class="form-control col-sm-5" type="date" data-date-format="dd/mm/yyyy" placeholder="dd-mm-yyyy" id="filter_tdate" value="@ViewData["FilterToDate"]" min="@ViewBag.StartDate" max="@ViewBag.EndDate" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="main-card card">
+					<div class="card-body">
+						<h5 class="card-title">Atendentes</h5>
+						<div class="wrapper dashboard-item-card">
+							<div class="row">
+								<div id="DashboardAgents" style="height: 310px; width:100%;" class="ag-theme-alpine"></div>
+							</div>
+						</div>
+						<button onclick="onBtnExport()" class="dashExportButton">download</button>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+				<div class="main-card card">
+					<div class="card-body">
+						<h5 class="card-title">Contatos por canal e origem</h5>
+						<div class="wrapper dashboard-item-card">
+							<div class="row">
+								<div id="DashboardContactsBySource" style="height: 310px; width:100%;" class="ag-theme-alpine"></div>
+							</div>
+						</div>
+						<button onclick="onBtnExport1()" class="dashExportButton">download</button>
+					</div>
+				</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="main-card card">
+                    <div class="card-body">
+                        <h5 class="card-title">Mensagens por dia</h5>
+                        <div class="wrapper col-12 dashboard-item-card"><canvas id="chart-message-by-day"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="main-card card">
+                    <div class="card-body">
+                        <h5 class="card-title">Usuários por dia</h5>
+                        <div class="wrapper col-12 dashboard-item-card"><canvas id="chart-user-by-day"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="main-card card">
+                    <div class="card-body">
+                        <h5 class="card-title chart-title">Canais</h5>
+                        <div class="wrapper col-12 dashboard-item-card">
+                            <canvas class="chart-channel-area" id="chart-channel-day"></canvas>
+                            <div class="dashboard-user-info">
+                                <div class="item-info">
+                                    <label class="label">Mensagens</label>
+                                    <label class="text">@ViewBag.TotalMessagesCount</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="user_by_day" value="@ViewBag.UsersByDay" />
+<input type="hidden" id="message_by_day" value="@ViewBag.MessagesByDay" />
+<input type="hidden" id="channel_by_day" value="@ViewBag.ChannelByDay" />
+<input type="hidden" id="StartDate" value="@ViewBag.StartDate" />
+<input type="hidden" id="EndDate" value="@ViewBag.EndDate" />
+<script src="~/assets/scripts/dateutil.js?ver=1.5"></script>
+<script src="~/assets-admin/chart/dashboard.js"></script>
+<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+<script src="~/assets-admin/scripts/DashboardView.js?ver=1.0"></script>
+<script src="~/assets-admin/scripts/DashboardContactsBySource.js"></script>

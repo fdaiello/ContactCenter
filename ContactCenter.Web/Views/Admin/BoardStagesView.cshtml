@@ -1,0 +1,50 @@
+﻿@using ContactCenter.Core.Models
+@using ContactCenter.Models.view
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center | Board Stages";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group custom-form-group">
+            <label class="col-form-label-sm">Selecione a lista</label>
+            <select class="form-control form-control-sm" id="board_selector">
+                <option value="value">--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12">
+        <table id="field-table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Ordem</th>
+                    <th style="display: flex; align-items: flex-end; justify-content: flex-end">
+                        Ação
+                        <a title="add"
+                           data-id="0"
+                           data-toggle="modal"
+                           data-target="#boardStageModal"
+                           class="add-row btn btn-primary"
+                           aria-describedby="ui-tooltip-0"
+                           onclick="showStageModal(1, this)">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="~/assets-admin/scripts/BoardStages.js"></script>

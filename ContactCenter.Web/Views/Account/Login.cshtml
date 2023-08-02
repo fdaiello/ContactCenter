@@ -1,0 +1,109 @@
+﻿@using ContactCenter.Core.Models
+@using Microsoft.AspNetCore.Identity
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Contact Center - Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>@ViewData["Title"]</title>
+	<!-- Bootstrap core CSS -->
+	<link href="~/assets-login/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="~/assets-login/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="~/assets-login/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="~/assets-login/css/animate.css">
+	<link rel="stylesheet" type="text/css" href="~/assets-login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="~/assets-login/css/main.css">
+	<link rel="stylesheet" href="~/assets-login/css/login.css">
+	<link rel="shortcut icon" type="image/x-icon" href="~/images/favicon-mp.svg">
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<div class="left-content">
+			<div class="logo"><img src="~/assets-login/logo_topo_fundo_escuro.svg" /></div>
+			<p class="f1">Welcome back!</p>
+			<div style="padding-bottom: 39px;">
+				<span class="f2">Arquivos CSS não foram carregados.</span>
+			</div>
+		</div>
+		<div class="right-content">
+			<div class="login100-pic js-tilt" data-tilt style="padding-bottom: 30px;">
+				<img src="~/assets-login/logo_topo_fundo_escuro.svg" alt="Mister Postman">
+			</div>
+
+			<form asp-route-returnurl="@ViewData["ReturnUrl"]" autocomplete="off" method="post" class="login100-form validate-form" id="login-form">
+				<div asp-validation-summary="All" class="text-danger" style="padding-left: 10px;"></div>
+				<div class="wrap-input100 validate-input">
+					<input asp-for="Username" class="input100" type="text" id="username">
+
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</span>
+				</div>
+
+				<div class="wrap-input100 validate-input">
+					<input asp-for="Password" class="input100" type="password" id="password">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+					</span>
+				</div>
+
+				<div class="container-login100-form-btn">
+					<input class="login100-form-btn" type="submit" value="Login" />
+				</div>
+				<div id="errorMsg" class="errormsg">
+                    @ViewData["ErrorMsg"]
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+</body>
+</html>
+<script src="~/assets-login/js/jquery.min.js"></script>
+<script src="~/assets-login/js/superplaceholder.js"></script>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScripts")
+}
+<script>
+    (function () {
+        document.getElementById('username').value = '';
+        document.getElementById('Password').value = '';
+    });
+    superplaceholder({
+        el: username,
+        sentences: ['Username'],
+        options: {
+            loop: true,
+            startOnFocus: false
+        }
+    })
+    superplaceholder({
+        el: password,
+        sentences: ['Password'],
+        options: {
+            loop: true,
+            startOnFocus: false
+        }
+    });
+
+	// Limpa div da mensagem de rro no botao clicar
+    $(document).on('click', '.login100-form-btn', function () {
+        $('#errorMsg').html('');
+    });
+</script>

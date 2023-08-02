@@ -1,0 +1,1496 @@
+﻿@{
+	ViewData["Title"] = "Contact Center | Admin";
+}
+<!doctype html>
+<html class="no-js" lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="pt-BR">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mister Postman Contact Center.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="~/assets-chatroom/css/main.css?ver=1.1" rel="stylesheet" />
+    <link href="~/assets-admin/css/custom.css?ver=1.13" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon-mp.svg">
+
+    <link rel="stylesheet" href="~/assets-admin/css/table.css">
+    <link rel="stylesheet" href="~/assets-admin/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets-admin/datatables.net-bs/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="~/assets-admin/css/bootstrap-fileinput.css">
+    <link rel="stylesheet" href="~/assets-admin/fontawesome/css/all.min.css">
+
+    <script src="~/assets/scripts/jquery-3.5.1.min.js"></script>
+
+    <script src="~/assets-admin/scripts/bootstrap-fileinput.js"></script>
+    <script src="~/assets-admin/datatables.net-bs/jquery.dataTables.min.js"></script>
+    <script src="~/assets-admin/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+
+    <script src="~/assets/scripts/util.js?ver=1.5"></script>
+    <script src="~/assets/scripts/dateutil.js?ver=1.6"></script>
+    <script src="~/assets-admin/chart/Chart.min.js"></script>
+    <script src="~/assets-admin/chart/utils.js?ver=1.1"></script>
+    <script src="~/assets-admin/fontawesome/js/all.min.js"></script>
+    </head>
+<body>
+
+	<div class="maindiv">
+		<!--Admin Container -->
+		<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+			<div class="app-header header-shadow header-text-light">
+				<div class="app-header__logo">
+					<div class="logo-src"></div>
+					<div class="header__pane ml-auto">
+						<div>
+							<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+								<span class="hamburger-box">
+									<span class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="app-header__mobile-menu">
+					<div>
+						<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+							<span class="hamburger-box">
+								<span class="hamburger-inner"></span>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="app-header__menu">
+					<span>
+						<button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+							<span class="btn-icon-wrapper">
+								<i class="fa fa-ellipsis-v fa-w-6"></i>
+							</span>
+						</button>
+					</span>
+				</div>
+				<div class="app-header__content">
+					<div class="app-header-left" onclick="currentAgentSelectAction()">
+						<div class="header-btn-lg pl-0">
+							<div class="widget-content p-0">
+								<div class="widget-content-wrapper">
+									<div class="widget-content-right">
+										<div class="btn-group">
+											<a id="current_avatar_img" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn" onclick="currentAgentSelectAction()">
+												<img class="rounded-circle" src="@(ViewBag.current_agent==null?"":ViewBag.current_agent.Avatar)" alt="@(ViewBag.current_agent==null?"":ViewBag.current_agent.FullName)">
+											</a>
+										</div>
+									</div>
+									<div class="widget-content-left  ml-3 header-user-info">
+										<div id="current_username_div" class="widget-heading">@(ViewBag.current_agent==null?"":ViewBag.current_agent.FullName)</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="app-header-right">
+						<ul class="header-menu nav">
+							<li class="nav-item">
+								<form asp-area="" asp-controller="Chat" asp-action="Index" method="get" class="navbar-right">
+									<button type="submit" class="btn mr-2 mb-2 btn-info custom-info" style="margin-top: 7px;">
+										Chat
+									</button>
+								</form>
+							</li>
+							@if ((bool)ViewData["hasAnyBoard"])
+							{
+								<li id="crm_view" class="nav-item">
+									<a href="/crm" class="btn mr-2 mb-2 btn-info custom-info" style="margin-top: 7px;">
+										CRM
+									</a>
+								</li>
+							}
+						</ul>
+						<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+							<button type="submit" class="btn-shadow p-1 btn btn-success btn-sm header-logout-btn" onclick="logoutAction();">
+								<i class="fas fa-power-off"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="app-main">
+				<div class="app-sidebar sidebar-shadow">
+					<div class="app-header__logo">
+						<div class="header__pane ml-auto">
+							<div>
+								<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+									<span class="hamburger-box">
+										<span class="hamburger-inner"></span>
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="app-header__mobile-menu">
+						<div>
+							<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+								<span class="hamburger-box">
+									<span class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+					</div>
+					<div class="app-header__menu">
+						<span>
+							<button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+								<span class="btn-icon-wrapper">
+									<i class="fa fa-ellipsis-v fa-w-6"></i>
+								</span>
+							</button>
+						</span>
+					</div>
+					<div class="scrollbar-sidebar">
+						<div class="app-sidebar__inner">
+                            <ul class="vertical-nav-menu metismenu">
+                                <li class="app-sidebar__heading admheader">Administrativo</li>
+                                @if (ViewData["admintype"].Equals("1") || ViewData["admintype"].Equals("2") || ViewData["admintype"].Equals("3"))
+                                {
+                                    <li>
+                                        <a href="Dashboard" @(ViewData["page"].Equals("dashboard") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </span>
+                                            Visão Geral
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <button class="dropdown-btn dropdown-campos">
+                                            <span class="menu-icon">
+                                                <i class="fas fa-tools"></i>
+                                                <i class="fa fa-caret-down icone-dropdown"></i>
+                                            </span>
+                                            Configurações
+                                        </button>
+
+                                        <div @(ViewData["page"].Equals("role") | ViewData["page"].Equals("group") | ViewData["page"].Equals("department") | ViewData["page"].Equals("user") | ViewData["page"].Equals("weekschedule") | ViewData["page"].Equals("chatchannel") ? " class=dropdown-container-open" : " class=dropdown-container")>
+
+                                            @if (ViewData["admintype"].Equals("1"))
+                                            {
+                                                <a href="RoleView" @(ViewData["page"].Equals("role") ? " class=mm-active" : "")>
+                                                    <span class="menu-icon">
+                                                        <i class="fas fa-user-tag"></i>
+                                                    </span>
+                                                    Funções
+                                                </a>
+                                                <a href="GroupView" @(ViewData["page"].Equals("group") ? " class=mm-active" : "")>
+                                                    <span class="menu-icon">
+                                                        <i class="fas fa-users"></i>
+                                                    </span>
+                                                    Grupos
+                                                </a>
+                                            }
+                                            <a href="DepartmentView" @(ViewData["page"].Equals("department") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-map-signs"></i>
+                                                </span>
+                                                Setores
+                                            </a>
+
+                                            <a href="UserView" @(ViewData["page"].Equals("user") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-user-alt"></i>
+                                                </span>
+                                                Atendentes
+                                            </a>
+
+                                            <a href="WeekScheduleView" @(ViewData["page"].Equals("weekschedule") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                </span>
+                                                Horário
+                                            </a>
+
+                                            <a href="ChatChannelView" @(ViewData["page"].Equals("chatchannel") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-bullseye"></i>
+                                                </span>
+                                                Canais
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+                                <li>
+                                    <button class="dropdown-btn dropdown-campos">
+                                        <span class="menu-icon">
+                                            <i class="far fa-address-card"></i>
+                                            <i class="fa fa-caret-down icone-dropdown"></i>
+                                        </span>
+                                        CRM
+                                    </button>
+
+                                    <div @(ViewData["page"].Equals("board") | ViewData["page"].Equals("boardstages") | ViewData["page"].Equals("fields") | ViewData["page"].Equals("contactfields") | ViewData["page"].Equals("boardfields") ? " class=dropdown-container-open" : " class=dropdown-container")>
+                                        <a href="BoardView" @(ViewData["page"].Equals("board") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="fas fa-border-none"></i>
+                                            </span>
+                                            Listas
+                                        </a>
+                                        <a href="BoardStagesView" @(ViewData["page"].Equals("boardstages") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="fab fa-gitter"></i>
+                                            </span>
+                                            Estágios
+                                        </a>
+
+                                        <button class="dropdown-btn dropdown-campos">
+                                            <span class="menu-icon">
+                                                <i class="fab fa-wpforms"></i>
+                                                <i class="fa fa-caret-down icone-dropdown"></i>
+                                            </span>
+                                            Campos
+                                        </button>
+                                        <div @(ViewData["page"].Equals("fields") | ViewData["page"].Equals("contactfields") | ViewData["page"].Equals("boardfields") ? " class=dropdown-container-open" : " class=dropdown-container")>
+                                            <a id="campo-definicao" href="FieldsView" @(ViewData["page"].Equals("fields") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-clipboard-list"></i>
+                                                </span>
+                                                Definição
+                                            </a>
+                                            <a id="campo-contato" href="ContactFieldsView" @(ViewData["page"].Equals("contactfields") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </span>
+                                                Campos do Contato
+                                            </a>
+                                            <a id="campo-cartoes" href="BoardFieldsView" @(ViewData["page"].Equals("boardfields") ? " class=mm-active" : "")>
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-poll-h"></i>
+                                                </span>
+                                                Campos das Listas
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <button class="dropdown-btn dropdown-campos">
+                                        <span class="menu-icon">
+                                            <i class="fas fa-bullhorn"></i>
+                                            <i class="fa fa-caret-down icone-dropdown"></i>
+                                        </span>
+                                        Marketing
+                                    </button>
+
+                                    <div @(ViewData["page"].Equals("landings") | ViewData["page"].Equals("messages") | ViewData["page"].Equals("sendings") | ViewData["page"].Equals("automations") | ViewData["page"].Equals("imports") | ViewData["page"].Equals("groupcampaigns") ? " class=dropdown-container-open" : " class=dropdown-container")>
+                                        <a href="ImportsView" @(ViewData["page"].Equals("imports") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            Importações
+                                        </a>
+                                        <a href="LandingsView" @(ViewData["page"].Equals("landings") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="fab fa-wpforms"></i>
+                                            </span>
+                                            Landing Pages
+                                        </a>
+                                        <a href="MessagesView" @(ViewData["page"].Equals("messages") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="far fa-envelope"></i>
+                                            </span>
+                                            Mensagens
+                                        </a>
+                                        <a href="SendingsView" @(ViewData["page"].Equals("sendings") ? " class=mm-active" : "")>
+                                            <span class="menu-icon">
+                                                <i class="fas fa-mail-bulk"></i>
+                                            </span>
+                                            Envios
+                                        </a>
+                                        <!---
+            <a href="GroupCampaignsView" @(ViewData["page"].Equals("groupcampaings") ? " class=mm-active" : "")>
+                <span class="menu-icon">
+                    <i class="fas fa-users-cog"></i>
+                </span>
+                Links de Grupos
+            </a>
+            <a href="AutomationsView" @(ViewData["page"].Equals("automations") ? " class=mm-active" : "")>
+                <span class="menu-icon">
+                    <i class="fas fa-cogs"></i>
+                </span>
+                Automações
+            </a>
+            -->
+                                    </div>
+                                </li>
+                            </ul>
+						</div>
+					</div>
+				</div>
+				<div class="app-main__outer">
+					<div class="app-main__inner">
+						<main>@RenderBody()</main>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scrips -->
+	<script type="text/javascript" src="~/assets-admin/scripts/main.js"></script>
+
+	<!-- Modals -->
+
+	@if (ViewData["page"].Equals("group"))
+	{
+		<!------------------------Group Save Dialog------------------------------>
+		<div class="modal fade" id="modal-group-add" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Grupo</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="box box-info" style="border-top: none;background: none;">
+										<div class="form-group">
+											<label for="add-group-name" class="col-sm-2 control-label">Nome</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-group-name" placeholder="Nome">
+												<input type="hidden" class="form-control" id="add-group-id" placeholder="ID">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-group-descr" class="col-sm-2 control-label">Descrição</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-group-descr" placeholder="Descrição">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-group-boturl" class="col-sm-2 control-label">Bot Url</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-group-boturl" placeholder="Bot Url">
+											</div>
+										</div>
+
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="modal-close-button btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" onclick="saveGroup();" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("department"))
+	{
+		<!------------------------Department Save Dialog------------------------------>
+		<div class="modal fade" id="modal-department-add" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Setores</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="box box-info" style="border-top: none;background: none;">
+										<div class="form-group">
+											<label for="add-department-name" class="col-sm-2 control-label">Nome</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-department-name" placeholder="Nome">
+												<input type="hidden" class="form-control" id="add-department-id" placeholder="Title">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="modal-close-button btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" onclick="addDepartment();" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("role"))
+	{
+		<!------------------------Role Save Dialog------------------------------>
+		<div class="modal fade" id="modal-role-add" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Função</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="box box-info" style="border-top: none;background: none;">
+										<div class="form-group">
+											<label for="add-role-name" class="col-sm-2 control-label">Nome</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-role-name" placeholder="Nome">
+												<input type="hidden" class="form-control" id="add-role-id" placeholder="ID">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-role-description" class="col-sm-2 control-label">Descrição</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-role-description" placeholder="Descrição">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="modal-close-button btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" onclick="addRole();" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("user"))
+	{
+		<!------------------------User Save Dialog------------------------------>
+		<div class="modal fade" id="modal-user-add" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Atendente</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="box box-info" style="border-top: none;background: none;">
+										<div class="form-group">
+											<div class="col-sm-12">
+												<div id="uploadimgarea">
+													<span style="position: absolute;display: block;" class="btn red btn-outline btn-file">
+														<span class="fileinput-new"> alterar imagem </span>
+														<input type="file" name="set-post-thumbnail" id="add-user-avatar">
+													</span>
+													<img style="border-radius:50%;width:150px;margin-top: 35px;height:150px;" id="temp_add_img" src="~/assets-chatroom/images/avatars/default.png" />
+												</div>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Grupo</label>
+											<div class="col-sm-10">
+												<select class="form-control" id="add-user-group">
+													@for (int i = 0; i < ViewBag.GroupList.Count; i++)
+													{
+														<option value="@ViewBag.GroupList[i].Id">@ViewBag.GroupList[i].Name</option>
+													}
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Setor</label>
+											<div class="col-sm-10">
+												<select class="form-control" id="add-user-department">
+													<option value="0"></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Função</label>
+											<div class="col-sm-10">
+												<select class="form-control" id="add-user-role">
+													@for (int i = 0; i < ViewBag.RoleList.Count; i++)
+													{
+														<option value="@ViewBag.RoleList[i].Name">@ViewBag.RoleList[i].Name</option>
+													}
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Notificações</label>
+											<div class="col-sm-10">
+												<select class="form-control" id="add-user-notification">
+													<option value="0">Desligadas</option>
+													<option value="1">De Atendentes</option>
+													<option value="2">De Atendentes e contatos próprios</option>
+													<option value="3">Todas</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-user-name" class="col-sm-2 control-label">Usuário</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-user-name" placeholder="Usuário">
+												<input type="hidden" class="form-control" id="add-user-id" placeholder="ID">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-user-email" class="col-sm-2 control-label">Email</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-user-email" placeholder="Email">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-user-fullname" class="col-sm-2 control-label">Nome</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-user-fullname" placeholder="Nome">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-user-nickname" class="col-sm-2 control-label">Apelido</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-user-nickname" placeholder="Apelido">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="modal-close-button btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" onclick="addUser();" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("chatchannel"))
+	{
+		<!------------------------Chat Channels Modal at Admin Panel ------------------------------>
+		<div class="modal fade" id="modal-chatchannels" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Canais</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal">
+									<div class="box box-info" style="border-top: none;background: none;">
+
+
+										<div class="form-group">
+											<label for="add-chatchannels-id" class="col-sm-2 control-label">Id</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-id" placeholder="Nome">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-chatchannels-name" class="col-sm-2 control-label">Nome</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-name" placeholder="Nome">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="add-chatchannels-channeltype" class="col-sm-2 control-label">Tipo</label>
+
+											<div class="col-sm-10">
+												<select class="form-control" id="add-chatchannels-channeltype" onchange="channeltypeChange(event)">
+													@for (int i = 0; i < ViewBag.ChannelTypeList.Count; i++)
+													{
+														<option value="@ViewBag.ChannelTypeList[i].Value">@ViewBag.ChannelTypeList[i].Text</option>
+													}
+												</select>
+											</div>
+										</div>
+										<div class="form-group hide" id="div-chatchannels-subtipo">
+											<label for="add-chatchannels-channelsubtype" class="col-sm-2 control-label">Subtipo</label>
+
+											<div class="col-sm-10">
+												<select class="form-control" id="add-chatchannels-channelsubtype" onchange="channeltypeChange(event);">
+													@if (ViewBag.ChannelSubTypeList != null)
+													{
+														@for (int i = 0; i < ViewBag.ChannelSubTypeList.Count; i++)
+														{
+															<option value="@ViewBag.ChannelSubTypeList[i].Value">@ViewBag.ChannelSubTypeList[i].Text</option>
+														}
+													}
+
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group hide" id="div-chatchannels-phoneno">
+											<label for="add-chatchannels-phoneno" class="col-sm-2 control-label">Phone Number</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-phoneno" placeholder="Phone Number">
+											</div>
+										</div>
+
+										<div class="form-group" id="div-chatchannels-status">
+											<label for="add-chatchannels-status" class="col-sm-2 control-label">Status</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-status" placeholder="Status">
+											</div>
+										</div>
+
+										<div class="form-group" id="div-chatchannels-appname">
+											<label for="add-chatchannels-appname" class="col-sm-2 control-label">App Name</label>
+
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-appname" placeholder="App Name">
+											</div>
+										</div>
+
+										<div class="form-group" id="div-chatchannels-host">
+											<label for="add-chatchannels-login" class="col-sm-2 control-label">Host</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-host" placeholder="Host">
+											</div>
+										</div>
+
+										<div class="form-group" id="div-chatchannels-login">
+											<label for="add-chatchannels-login" class="col-sm-2 control-label">Login</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-login" placeholder="Login">
+											</div>
+										</div>
+
+										<div class="form-group" id="div-chatchannels-password">
+											<label for="add-chatchannels-password" class="col-sm-2 control-label">Senha</label>
+											<div class="col-sm-10">
+												<input type="password" class="form-control" id="add-chatchannels-password" placeholder="Senha" autocomplete="off">
+											</div>
+										</div>
+
+										<div class="form-group" id="div-chatchannels-from">
+											<label for="add-chatchannels-from" class="col-sm-2 control-label">Remetente</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="add-chatchannels-from" placeholder="remetente@seudominio.com.br" autocomplete="off">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="add-chatchannels-department" class="col-sm-2 control-label">Setor</label>
+
+											<div class="col-sm-10">
+												<select class="form-control" id="add-chatchannels-department">
+													<option value="0" selected></option>
+													@for (int i = 0; i < ViewBag.DepartmentList.Count; i++)
+													{
+														<option value="@ViewBag.DepartmentList[i].Id">@ViewBag.DepartmentList[i].Name</option>
+													}
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="add-chatchannels-applicationuser" class="col-sm-2 control-label">Usuario</label>
+
+											<div class="col-sm-10">
+												<select class="form-control" id="add-chatchannels-applicationuser">
+													<option value="" selected></option>
+													@for (int i = 0; i < ViewBag.FilterUsers.Count; i++)
+													{
+														<option value="@ViewBag.FilterUsers[i].Id">@ViewBag.FilterUsers[i].FullName</option>
+													}
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-3">
+												</div>
+												<div class="col-sm-7" id="divQRCode">
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" onclick="ImportContacts()" class="btn btn-secondary" id="btn_chatchannel_import">Importar Contatos</button>
+						<button type="button" class="modal-close-button btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" onclick="saveChatChannel()" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("fields"))
+	{
+		<!------------------------Field Save Dialog------------------------------>
+		<div class="modal fade fieldModal" id="fieldModal" tabindex="-1" aria-labelledby="fieldModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="fieldModalLabel">Create Field</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="field_label">Nome</label>
+							<input type="text" class="form-control form-control-sm" id="field_label" autocomplete="chromeoff">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="field_type">Tipo</label>
+							<select class="form-control form-control-sm" id="field_type">
+								<option value="0">Inteiro</option>
+								<option value="1">Decimal</option>
+								<option value="2">Money</option>
+								<option value="3">Data</option>
+								<option value="4">Hora</option>
+								<option value="5">DataHora</option>
+								<option value="6">Texto</option>
+								<option value="7">TextArea</option>
+								<option value="8">DataList</option>
+								<option value="9">Imagem</option>
+								<option value="10">Documento</option>
+							</select>
+						</div>
+						<div class="datalist-items">
+							<p>Valores</p>
+							<div class="value-list">
+								<!-- Dynamic Datalist values here-->
+							</div>
+							<div class="form-group">
+								<label class="col-form-label-sm">novo valor</label>
+								<input type="text" id="add_datalist_value" class="form-control form-control-sm" name="name" value="" autocomplete="chromeoff" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field" data-id="0">Create</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("board"))
+	{
+		<!------------------------Board Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="boardModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardModalLabel">Create Field</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_name">Nome</label>
+							<input type="text" class="form-control form-control-sm" id="board_name" autocomplete="chrome-off">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_label">Descrição</label>
+							<input type="text" class="form-control form-control-sm" id="board_label">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_department_id">Setor</label>
+							<select class="form-control form-control-sm" id="board_department_id"></select>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_application_user_id">Atendente</label>
+							<select class="form-control form-control-sm" id="board_application_user_id"></select>
+						</div>
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="board_is_multiple" value="false">
+							<label class="custom-control-label" for="board_is_multiple">Permite inserir mais de uma vez na lista</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field" data-id="0">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("boardfields"))
+	{
+		<!------------------------Board Field Modal at Admin------------------------------>
+		<div class="modal fade fieldModal" id="boardFieldModal" tabindex="-1" aria-labelledby="boardFieldModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardFieldModalLabel">Create Field</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_field_label">nome</label>
+							<input type="text" class="form-control form-control-sm" id="board_field_label" autocomplete="chromeoff">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_field_order">Ordem</label>
+							<input type="text" class="form-control form-control-sm" id="board_field_order">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_field_type">Tipo</label>
+							<select class="form-control form-control-sm" id="board_field_type">
+								<option value="0">Integer</option>
+								<option value="1">Decimal</option>
+								<option value="2">Money</option>
+								<option value="3">Date</option>
+								<option value="4">Time</option>
+								<option value="5">DateTime</option>
+								<option value="6">Text</option>
+								<option value="7">TextArea</option>
+								<option value="8">DataList</option>
+								<option value="9">Image</option>
+								<option value="10">Document</option>
+							</select>
+						</div>
+						<div class="datalist-items">
+							<p>Data List Values</p>
+							<div class="value-list">
+								<!-- Dynamic Datalist values here-->
+							</div>
+							<div class="form-group">
+								<label class="col-form-label-sm">DataList Value</label>
+								<input type="text" id="add_board_datalist_value" class="form-control form-control-sm" name="name" value="" />
+							</div>
+						</div>
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="board_field_enabled" value="false">
+							<label class="custom-control-label" for="board_field_enabled">Ativo</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field" data-id="0">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("boardstages"))
+	{
+		<!----------------------- Stage Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="boardStageModal" tabindex="-1" aria-labelledby="boardStageModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Create Stage</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_stage_name">Nome</label>
+							<input type="text" class="form-control form-control-sm" id="board_stage_name" autocomplete="chrome-off">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_stage_label">Descrição</label>
+							<input type="text" class="form-control form-control-sm" id="board_stage_label">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_stage_order">Ordem</label>
+							<input type="number" class="form-control form-control-sm" id="board_stage_order" value="0">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="board_stage_showmax">Limite</label>
+							<input type="number" class="form-control form-control-sm" id="board_stage_showmax" value="0">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field" data-id="0">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("messages"))
+	{
+		<!----------------------- Message Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-message" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Criar mensagem</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="modal-message-type">Tipo</label>
+							<select class="form-control form-control-sm" id="modal-message-type" onchange="messageTypeChange(event)">
+								<option value=""></option>
+								<option value="0">Email</option>
+								<option value="1">Whatsapp</option>
+								<option value="2">SMS</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="moda-message-title">Título</label>
+							<input type="text" class="form-control form-control-sm" id="modal-message-title" autocomplete="off">
+						</div>
+						<div class="form-group hide" id="message-content">
+							<label class="col-sm-2 control-label" for="modal-message-content">Conteúdo</label>
+							<div class="form-control form-control-sm" id="modal-message-content" contenteditable="true"></div>
+							<button id="modal-message-btn-bold" title="Negrito." class="hide"><i class="fas fa-bold"></i></button>
+							<button id="modal-message-btn-personalizar" title="Personalize sua mensagem com campos do contato."><i class="far fa-address-card"></i></button>
+							<button id="modal-message-btn-addlink" title="Insira um link para uma Landing-Page."><i class="fas fa-link"></i></button>
+							<div id="modal-message-customfieldpicker" class="hide">
+								<div class="fieldpicker" data-name="NOME" role="button">NOME</div>
+								<div class="fieldpicker" data-name="NOME1" role="button">NOME1</div>
+							</div>
+							<div id="modal-message-linkpicker" class="hide"></div>
+						</div>
+						<div class="form-group hide" id="div-modal-message-content-counter">
+							<label class="col-sm-2 control-label" for="modal-message-content-counter">Caracteres</label>
+							<input type="text" class="form-control form-control-sm" id="modal-message-content-counter" disabled>
+						</div>
+						<div class="form-group hide" id="div-modal-message-smart-page">
+							<label class="col-sm-2 control-label" for="modal-message-smart-page">Smart-Page</label>
+							<select class="form-control form-control-sm" id="modal-message-smart-page" onchange="smartpageChange(event)">
+								<!-- Dynamic from API-->
+							</select>
+						</div>
+						<div class="form-group hide" id="div-modal-message-link">
+							<label class="col-sm-2 control-label" for="modal-message-link">Link</label>
+							<div id="modal-message-link"></div>
+						</div>
+						<div class="form-group hide" id="div-modal-message-image">
+							<label class="col-sm-2 control-label" for="attached-file">Imagem</label>
+							<div class='attached-view' onclick="messageAttachedClick()">
+								<img src="/images/picture-icon.png" title="Clique para enviar uma imagem." />
+							</div>
+							<input type="file" id="attached-file" accept=".gif,.jpg,.jpeg,.png" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" id="modal-message-id">
+						<input type="hidden" id="modal-message-fileuri">
+						<input type="hidden" id="modal-message-createddate">
+						<button type="button" class="btn btn-secondary modal-close-button" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("landings"))
+	{
+		<!----------------------- Landing pages Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-landing" tabindex="-1" aria-labelledby="Landing Pages Modal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-landing-header">Criar Landing Page</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="modal-landing-title">Título</label>
+                            <input type="text" class="form-control form-control-sm" id="modal-landing-title" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="modal-landing-board">Lista</label>
+                            <select class="form-control form-control-sm" id="modal-landing-board">
+                                <!-- Dynamic from API-->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="modal-landing-uri">
+                                Página de resposta
+                                <span class="tooltip1">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltiptext">Opcional. Indique a URL da página que será exibida após o formulário ter sido preenchido.</span>
+                                </span>
+                            </label>
+                            <input type="text" class="form-control form-control-sm" id="modal-landing-uri" autocomplete="off">
+                        </div>
+                        <div class="form-group hide" id="div-modal-landing-link">
+                            <label class="col-sm-2 control-label" for="modal-landing-link">Link</label>
+                            <div id="modal-landing-link"></div>
+                        </div>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary modal-close-button" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("sendings"))
+	{
+		<link rel="stylesheet" type="text/css" href="~/assets/datetimepicker/jquery.datetimepicker.min.css" />
+		<script src="~/assets/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+
+		<!----------------------- Sending Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-sending" tabindex="-1" aria-labelledby="sendingModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Criar envio</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="modal-sending-type">Tipo</label>
+							<select class="form-control form-control-sm" id="modal-sending-type">
+								<option value=""></option>
+								<option value="0">Email</option>
+								<option value="1">WhatsApp</option>
+								<option value="2">SMS</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="modal-sending-title">Título</label>
+							<input type="text" class="form-control form-control-sm" id="modal-sending-title" autocomplete="off">
+						</div>
+						<div class="form-group" id="sending-board">
+							<label class="col-sm-2 control-label" for="modal-sending-board">Lista</label>
+							<select class="form-control form-control-sm" id="modal-sending-board">
+								<!-- Dynamic from API-->
+							</select>
+						</div>
+						<div class="form-group" id="sending-filter">
+							<label class="col-sm-2 control-label" for="modal-sending-filter">
+								Filtro <span class="tooltip1">
+									<i class="fas fa-info-circle"></i>
+									<span class="tooltiptext">Você pode criar filtros pela visão em lista do CRM, para segmentar sua lista de contatos.</span>
+								</span>
+							</label>
+							<select class="form-control form-control-sm" id="modal-sending-filter">
+								<!-- Dynamic from API-->
+							</select>
+						</div>
+						<div class="form-group" id="sending-message">
+							<label class="col-sm-2 control-label" for="modal-sending-message">Mensagem</label>
+							<select class="form-control form-control-sm" id="modal-sending-message">
+								<!-- Dynamic from API-->
+							</select>
+						</div>
+						<div class="form-group hide" id="sending-channel">
+							<label class="col-sm-2 control-label" for="modal-sending-channel">Canal</label>
+							<select class="form-control form-control-sm" id="modal-sending-channel">
+								<!-- Dynamic from API-->
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="modal-sending-scheduleddate">Data</label>
+							<input type="text" class="form-control form-control-sm" id="modal-sending-scheduleddate">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" id="modal-sending-id">
+						<input type="hidden" id="modal-sending-status">
+						<button type="button" class="btn btn-secondary modal-close-button" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field" data-id="0" data-dismiss="modal">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!----------------------- Sending REPORT Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-sending-report" tabindex="-1" aria-labelledby="sendingModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Relatório do Envio</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="sending-report">
+							<h1></h1>
+							<div>
+								<label for="modal-sending-report-sentdate">Data</label>
+								<input type="text" id="modal-sending-report-sentdate" enabled="false">
+							</div>
+							<div>
+								<label for="modal-sending-report-total">Total de contatos</label>
+								<input type="text" id="modal-sending-report-total" enabled="false">
+							</div>
+							<div>
+								<label for="modal-sending-report-sent">Enviadas <span aria-label="Sent." data-icon="msg-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="16" height="15"><path fill="currentColor" d="M10.91 3.316l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"></path></svg></span></label>
+								<input type="text" id="modal-sending-report-sent" enabled="false">
+							</div>
+							<div>
+								<label for="modal-sending-report-delivered">Entregues <span aria-label="Delivered." data-icon="msg-dblcheck"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="16" height="15"><path fill="currentColor" d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"></path></svg></span></label>
+								<input type="text" id="modal-sending-report-delivered" enabled="false">
+							</div>
+							<div>
+								<label for="modal-sending-report-read">Lidas <span aria-label="Read." data-icon="msg-dblcheck" class="CheckRead"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="16" height="15"><path fill="currentColor" d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"></path></svg></span></label>
+								<input type="text" id="modal-sending-report-read" enabled="false">
+							</div>
+							<div>
+								<label for="modal-sending-report-failed">Falhas <span data-icon="recalled" class="CheckFail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 19" width="17" height="19"><path fill="currentColor" d="M12.629 12.463a5.17 5.17 0 0 0-7.208-7.209l7.208 7.209zm-1.23 1.229L4.191 6.484a5.17 5.17 0 0 0 7.208 7.208zM8.41 2.564a6.91 6.91 0 1 1 0 13.82 6.91 6.91 0 0 1 0-13.82z"></path></svg></span></label>
+								<input type="text" id="modal-sending-report-failed" enabled="false">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}
+	@if (ViewData["page"].Equals("imports"))
+	{
+		<!-----------------------Import Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-import" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Importar Contatos</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group" id="sending-board">
+							<label class="col-sm-2 control-label" for="modal-import-board">Lista</label>
+							<select class="form-control form-control-sm" id="modal-import-board">
+								<!-- Dynamic from API-->
+							</select>
+						</div>
+						<div class="form-group hide" id="modal-import-newlistname-div">
+							<label class="col-sm-2 control-label" for="modal-import-newlistname">Nome da Lista</label>
+							<input type="text" class="form-control form-control-sm" id="modal-import-newlistname" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<input type="file" id="attached-file" accept=".csv" />
+							<button class="btn btn-sm p-1 btn-submit-file col-sm-2" onclick="messageAttachedClick();" title="Enviar o arquivo"><i class="fas fa-paperclip"></i></button>
+							<input type="text" class="form-control form-control-sm" id="modal-import-filename" disabled>
+						</div>
+						<div class="form-group hide" id="modal-import-counter-div">
+							<label class="col-sm-2 control-label" for="modal-import-counter">Linhas</label>
+							<input type="text" class="form-control form-control-sm" id="modal-import-counter" disabled>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" id="modal-import-id">
+						<input type="hidden" id="modal-import-uniquefilename">
+						<input type="hidden" id="modal-import-importdate">
+						<button type="button" class="btn btn-secondary modal-close-button" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-primary btn-save-field">Importar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	@if (ViewData["page"].Equals("groupcampaigns"))
+	{
+		<link rel="stylesheet" type="text/css" href="~/assets/datetimepicker/jquery.datetimepicker.min.css" />
+		<link rel="stylesheet" type="text/css" href="~/assets-admin/css/Tabs.css" />
+		<script src="~/assets/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+
+		<!----------------------- GroupCampaing Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-groupcampaign" tabindex="-1" aria-labelledby="groupcampaign" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="groupcampaignModalLabel">Campanha</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- Tab links -->
+						<div class="tab">
+							<button class="tablinks" onclick="openTab(event, 'Dados')">Dados</button>
+							<button class="tablinks" onclick="openTab(event, 'Grupos')">Grupos</button>
+							<button class="tablinks" onclick="openTab(event, 'Mensagens')">Mensagens</button>
+							<button class="tablinks" onclick="openTab(event, 'Tags')">Tags</button>
+							<button class="tablinks" onclick="openTab(event, 'Termino')">Termino</button>
+						</div>
+						<div id="Dados" class="tabcontent" style="display:block">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-name">Nome</label>
+								<input type="text" class="form-control form-control-sm" id="modal-groupcampaign-name" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-description">Descrição</label>
+								<textarea class="form-control form-control-sm" id="modal-groupcampaign-description" autocomplete="off" rows="4" cols="40"></textarea>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-linksufix">Link</label>
+								<span class="link">smart-page.cc/</span><input type="text" class="form-control form-control-sm linkField" id="modal-groupcampaign-linksufix" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-name">Imagem</label>
+								<div class='attached-view' style="max-width: 75px" onclick="messageAttachedClick()"><img src="/images/picture-icon.png" title="Clique para enviar uma imagem." /></div>
+								<input type="file" id="attached-file" accept=".gif,.jpg,.jpeg,.png" />
+							</div>
+						</div>
+						<div id="Grupos" class="tabcontent">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-GroupCount">Qtd de grupos</label>
+								<input type="text" class="form-control form-control-sm shortField" id="modal-groupcampaign-qtdGroups" autocomplete="off" value="1">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-MaxClicksPerGroup">Vagas por grupo</label>
+								<input type="text" class="form-control form-control-sm shortField" id="modal-groupcampaign-MaxClicksPerGroup" autocomplete="off" value="150">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-FirstGroupNumber">Número inicial</label>
+								<input type="text" class="form-control form-control-sm shortField" id="modal-groupcampaign-FirstGroupNumber" autocomplete="off" value="1">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-permissions">Ação</label>
+								<select class="form-control form-control-sm" id="modal-groupcampaign-groupaction">
+									<option value="0">criar grupos</option>
+									<option value="1">importar grupos</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-permissions">Permissões</label>
+								<select class="form-control form-control-sm" id="modal-groupcampaign-permissions">
+									<option value="0">somente admins podem postar</option>
+									<option value="0">todos podem postar</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-GroupAdmins">
+									Administrador(es)
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Número de telefone com DDD, que já esteja na agenda do celular, para fazer parte do grupo e ser administrador. Opcionalmente insira mais de um número separado por vírgula.</span>
+									</span>
+								</label>
+								<input type="text" class="form-control form-control-sm" id="modal-groupcampaign-GroupAdmins" autocomplete="off">
+							</div>
+							<div class="tab-content">
+								<div class="form-group" id="div-groupcampaign-channel">
+									<label class="col-sm-3 control-label" for="modal-groupcampaign-channel">
+										Canal
+										<span class="tooltip1">
+											<i class="fas fa-info-circle"></i>
+											<span class="tooltiptext">Indique qual é o celular onde serão criados os grupos e enviadas as mensagens de grupo.</span>
+										</span>
+									</label>
+									<select class="form-control form-control-sm" id="modal-groupcampaign-channel">
+										<!-- Dynamic from API-->
+									</select>
+								</div>
+							</div>
+						</div>
+						<div id="Mensagens" class="tabcontent">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="groupWelcomeMessageId">
+									Boas vindas (grupo)
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Será enviada para um grupo quando ele tiver lotado. Crie pelo menu Mensagens.</span>
+									</span>
+								</label>
+								<select class="form-control form-control-sm" id="groupWelcomeMessageId">
+									<!-- Dynamic from API-->
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="welcomeMessageId">
+									Boas Vindas (direta)
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Será enviada individialmente quando um lead entrar no grupo. Crie pelo menu Mensagens.</span>
+									</span>
+								</label>
+								<select class="form-control form-control-sm" id="welcomeMessageId">
+									<!-- Dynamic from API-->
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="leaveMessageId">
+									Saiu do grupo
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Será enviada individualmente quando um lead sair do grupo.</span>
+									</span>
+								</label>
+								<select class="form-control form-control-sm" id="leaveMessageId">
+									<!-- Dynamic from API-->
+								</select>
+							</div>
+							<div class="tab-content">
+								<div class="form-group" id="div-groupcampaign-channel">
+									<label class="col-sm-3 control-label" for="modal-groupcampaign-channel">
+										Canal
+										<span class="tooltip1">
+											<i class="fas fa-info-circle"></i>
+											<span class="tooltiptext">Indique qual é o celular que vai enviar as mensagens individuais, de entrada e saída do grupo.</span>
+										</span>
+									</label>
+									<select class="form-control form-control-sm" id="modal-groupcampaign-channel-msg">
+										<!-- Dynamic from API-->
+									</select>
+								</div>
+							</div>
+						</div>
+						<div id="Tags" class="tabcontent">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-FacePixelCode">
+									Pixel Facebook
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Opcional. Se quiser marcar os leads com o Pixel do FaceBook, coloque aqui o código.</span>
+									</span>
+								</label>
+								<input type="text" class="form-control form-control-sm" id="modal-groupcampaign-FacePixelCode" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-GoogleAdsCode">
+									Google Id
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Opcional. Se quiser marcar os leads com a tag do Google Ads, coloque aqui o código.</span>
+									</span>
+								</label>
+								<input type="text" class="form-control form-control-sm" id="modal-groupcampaign-GoogleAdsCode" autocomplete="off">
+							</div>
+						</div>
+						<div id="Termino" class="tabcontent">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-enddate">Data final</label>
+								<input type="text" class="form-control form-control-sm" id="modal-groupcampaign-enddate">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="modal-groupcampaign-ClosedUrl">
+									Página se encerrada
+									<span class="tooltip1">
+										<i class="fas fa-info-circle"></i>
+										<span class="tooltiptext">Url da página que será exibida caso a campanhe esteja encerrada. Opcional.</span>
+									</span>
+								</label>
+								<input type="text" class="form-control form-control-sm" id="modal-groupcampaign-ClosedUrl">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" id="modal-groupcampaign-id">
+						<input type="hidden" id="modal-groupcampaign-ImageFileName">
+						<input type="hidden" id="modal-groupcampaign-createddate">
+						<button type="button" class="btn btn-secondary modal-close-button" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary btn-save-field" data-id="0">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!----------------------- Group Campaign REPORT Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-groupcampaign-report" tabindex="-1" aria-labelledby="Group Campaign Report" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Relatório da campanha</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="groupcampaign-report">
+							<h1></h1>
+							<canvas id="chart-groupcampaign-pageviews-by-day"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!----------------------- Group Campaign WhatsGroups Modal at Admin ------------------------------>
+		<div class="modal fade fieldModal" id="modal-groupcampaign-whatsgroups" tabindex="-1" aria-labelledby="Group Campaign - Whats Groups" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="boardStageModalLabel">Grupos</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="whatsGroups">
+							<table id="whatsgroups-grid" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>Nome</th>
+										<th>Link</th>
+										<th>Clicks</th>
+										<th>Leads</th>
+										<th>Membros</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</body>
+</html>

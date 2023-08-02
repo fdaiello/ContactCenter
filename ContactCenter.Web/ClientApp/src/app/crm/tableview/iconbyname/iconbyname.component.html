@@ -1,0 +1,4 @@
+<img border="0" src="{{ params.value }}" *ngIf="params.value&&params.value.startsWith('http'); else elseBlock" class="avatar">
+<ng-template #elseBlock>
+  <span class="badge-{{this.avatarService.getIconClass(params.value)}} generated-icon">{{this.avatarService.getIconPrefix(params.value)}}</span>
+</ng-template>

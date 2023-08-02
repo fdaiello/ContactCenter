@@ -1,0 +1,36 @@
+<!-- This is our container-->
+<mat-sidenav-container class="sidenav-container">
+  <!-- this is our side nav content that will be in our opened side-->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
+    <mat-toolbar>Menu</mat-toolbar>
+
+    <!-- our navigation items list-->
+    <mat-nav-list>
+      <a href="/chat" mat-list-item (click)="drawer.close()">Chat</a>
+      <a href="/admin" mat-list-item (click)="drawer.close()">Admin</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- This is our content on the page! -->
+  <mat-sidenav-content>
+    <!-- Menu toolbar at the top of the page-->
+    <mat-toolbar>
+      <!-- Menu button -->
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <!-- Icon for the button-->
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a class="logo" href="/"><img src="/assets/images/logo_topo_fundo_escuro.svg" alt="Mister Postman"></a>
+      <div class="menu-list" *ngIf="!(isHandset$ | async)">
+        <a mat-raised-button class="btn-menu-superior" href="/Admin/index">Admin</a>
+        <a mat-raised-button class="btn-menu-superior" href="/">Chat</a>
+      </div>
+
+    </mat-toolbar>
+
+    <!-- we just include some content that will be transcluded from another component-->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

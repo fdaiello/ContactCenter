@@ -1,0 +1,62 @@
+<mat-card class="outer-card">
+  <mat-card-header>
+    <!-- Slot for the handle -->
+    <ng-content></ng-content>
+    <mat-card-title>
+      {{ stage.name }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ stage.label }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="card"
+       id={{stage.id}}
+       cdkDropList
+       [cdkDropListData]="cards"
+       cdkDropListOrientation="vertical"
+       (cdkDropListDropped)="cardDrop($event)"
+       [cdkDropListConnectedTo]="getConnectedList()">
+    <mat-accordion class="example-headers-align" multi>
+      <div class="inner-card"
+           *ngFor="let card of cards; let i = index"
+           cdkDrag [cdkDragData]="card">
+        <mat-card class="contact-card" [ngClass]="(card.color) ? card.color : 'white'">
+
+          <mat-expansion-panel class="full">
+            <mat-expansion-panel-header>
+              <div class="name">
+                <img *ngIf="card.contact.pictureFileName&&card.contact.pictureFileName.startsWith('http')" [src]="card.contact.pictureFileName" class="avatar">
+                <span *ngIf="!card.contact.pictureFileName" class="badge badge-pill badge-{{this.avatarService.getIconClass(card.contact.name)}} generated-icon">{{this.avatarService.getIconPrefix(card.contact.name)}}</span>
+                  {{ card.contact.name }}
+              </div>
+            </mat-expansion-panel-header>
+            <div class="fields" (click)="openDialog(card, i)">
+              <div class="field" *ngFor="let field of card.cardFieldValues">
+                <p><span class="label">{{ field.field.label }}:</span> <span *ngIf="field.value" class="value">
+  {{
+  field.field.fieldType == 9 || field.field.fieldType == 10 ? "arquivo"
+: field.field.fieldType == 3 ? (field.value | date:'dd/MM/yyyy')
+: field.field.fieldType == 5 ? (field.value | date:'dd/MM/yyyy HH:mm')
+: field.value
+  }}
+</span></p>
+              </div>
+              <div class="detail">editar</div>
+            </div>
+            <div class="chat">
+              <a href="{{ apiUrl
+                }}?search={{ card.contact.name }}&contactId={{ card.contact.id }}"><fa-icon [icon]="faComment"></fa-icon> Chat</a>
+              </div>
+            <div class="dates">
+              <div class="createdAt">Criado: {{ card.createdDate | date: 'dd/MM' }}</div>
+              <div class="updatedAt">Alterado: {{ card.updatedDate | date: 'dd/MM' }}</div>
+            </div>
+          </mat-expansion-panel>
+
+        </mat-card>
+      </div>
+      <p><!-- Drop area needed! --></p>
+    </mat-accordion>
+  </div>
+</mat-card>
